@@ -1,0 +1,28 @@
+{
+  "name": "addon-redux",
+  "version": "3.4.5.0",
+  "description": "Storybook addon for Redux Components",
+  "keywords": [
+    "addon",
+    "redux",
+    "react",
+    "storybook"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frodare/addon-redux.git"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "jsnext:main": "src/index.js",
+  "dependencies": {
+    "@storybook/addons": "3.4.5",
+    "babel-runtime": "^6.26.0",
+    "jsondiffpatch": "^0.3.10",
+    "prop-types": "^15.6.1",
+    "recompose": "^0.26.0"
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
+}
