@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { diff as differ } from 'jsondiffpatch'
 import * as events from './lib/events'
-import { mergeStateAction, setStateAction, WITH_REDUX_ENABLED } from './lib/enhancer'
+import { mergeStateAction, setStateAction, WITH_REDUX_ENABLED } from './enhancer'
 
 export default addons => (store, state) => {
   const channel = addons.getChannel()
