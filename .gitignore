@@ -2,3 +2,7 @@
 node_modules/
 npm-debug.log
 dist/
+enhancer.js
+register.js
+withRedux.js
+lib/
