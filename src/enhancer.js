@@ -1,4 +1,3 @@
-
 export const MERGE_STATE_TYPE = '@@MERGE_STATE'
 export const SET_STATE_TYPE = '@@SET_STATE'
 export const WITH_REDUX_ENABLED = '__WITH_REDUX_ENABLED__'

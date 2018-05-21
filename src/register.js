@@ -1,6 +1,6 @@
 import React from 'react'
-import HistoryPanel from './components/HistoryPanel'
-import StatePanel from './components/StatePanel'
+import HistoryPanel from './lib/components/HistoryPanel'
+import StatePanel from './lib/components/StatePanel'
 
 export default addons => {
   addons.register('storybook/with_redux', api => {

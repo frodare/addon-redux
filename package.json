@@ -14,8 +14,8 @@
     "url": "https://github.com/frodare/addon-redux.git"
   },
   "scripts": {
-    "build": "babel ./src -d ./dist",
-    "dev": "babel ./src -d ./dist -w"
+    "build": "babel ./src -d ./",
+    "dev": "babel ./src -d ./ -w"
   },
   "license": "MIT",
   "main": "dist/index.js",
