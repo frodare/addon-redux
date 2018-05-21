@@ -28,7 +28,11 @@ HistoryPanel.propTypes = {
 const buildHandlers = ({
   onInit: ({ setChanges }) => () => setChanges([]),
   onDispatch: ({ setChanges, changes }) => change => {
-    setChanges([change, ...changes.slice(0, 10)])
+    if (!change) {
+      setChanges([])
+    } else {
+      setChanges([change, ...changes.slice(0, 10)])
+    }
   }
 })
 
@@ -37,9 +41,15 @@ const lifecycleHandlers = ({
     const { channel } = this.props
     channel.on(events.INIT, this.props.onInit)
     channel.on(events.ON_DISPATCH, this.props.onDispatch)
+    this.stopListeningOnStory = this.props.api.onStory(() => {
+      this.props.onDispatch()
+    })
   },
   componentWillUnmount () {
     const { channel } = this.props
+    if (this.stopListeningOnStory) {
+      this.stopListeningOnStory()
+    }
     channel.removeListener(events.INIT, this.props.onInit)
     channel.removeListener(events.ON_DISPATCH, this.props.onDispatch)
   }
