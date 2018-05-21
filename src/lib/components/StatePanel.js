@@ -7,20 +7,36 @@ import withState from 'recompose/withState'
 import * as events from '../events'
 import SetStateForm from './SetStateForm'
 
-export const StatePanel = ({ state, channel }) =>
+export const StatePanel = props =>
   <div>
-    <pre>{JSON.stringify(state, null, 2)}</pre>
-    <SetStateForm state={state} channel={channel} />
+    {props.mode === 'edit' ? <EditMode {...props} /> : <ViewMode {...props} />}
   </div>
 
 StatePanel.propTypes = {
   state: PropTypes.object.isRequired,
-  channel: PropTypes.object.isRequired
+  channel: PropTypes.object.isRequired,
+  api: PropTypes.object.isRequired,
+  mode: PropTypes.string.isRequired
+}
+
+const EditMode = props => <SetStateForm {...props} />
+
+const ViewMode = ({ state, setEditMode }) =>
+  <div>
+    <button onClick={setEditMode}>Edit</button>
+    <pre>{JSON.stringify(state, null, 2)}</pre>
+  </div>
+
+ViewMode.propTypes = {
+  state: PropTypes.object.isRequired,
+  setEditMode: PropTypes.func.isRequired
 }
 
 const buildHandlers = ({
   onInit: ({ setState }) => state => setState(state),
-  onDispatch: ({ setState, state }) => ({action, diff}) => setState(state)
+  onDispatch: ({ setState, state }) => ({action, diff, prev, next}) => console.log('heard dispatch from state panel', diff, prev, next) || setState(next),
+  setViewMode: ({ setMode }) => () => setMode('view'),
+  setEditMode: ({ setMode }) => () => setMode('edit')
 })
 
 const lifecycleHandlers = ({
@@ -38,6 +54,7 @@ const lifecycleHandlers = ({
 
 const enhance = compose(
   withState('state', 'setState', {}),
+  withState('mode', 'setMode', 'view'),
   withHandlers(buildHandlers),
   lifecycle(lifecycleHandlers)
 )
