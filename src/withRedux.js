@@ -11,7 +11,8 @@ export default addons => (store, state) => {
 
   const onDispatchListener = (action, prev, next) => {
     const diff = differ(prev, next)
-    channel.emit(events.ON_DISPATCH, {action, diff, prev, next})
+    const date = new Date()
+    channel.emit(events.ON_DISPATCH, {date, action, diff, prev, next})
   }
 
   return story => {

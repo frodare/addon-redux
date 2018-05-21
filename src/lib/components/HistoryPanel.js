@@ -5,11 +5,21 @@ import withHandlers from 'recompose/withHandlers'
 import compose from 'recompose/compose'
 import withState from 'recompose/withState'
 import * as events from '../events'
+import StateChange from './StateChange'
 
 export const HistoryPanel = ({ changes }) =>
-  <div>
-    {changes.map((change, i) => <div key={i}><pre>{JSON.stringify(change, null, 2)}</pre></div>)}
-  </div>
+  <table style={{fontSize: '14px', width: '100%'}}>
+    <tr>
+      <th>Date</th>
+      <th>Action Name</th>
+      <th>Action</th>
+      <th>State Diff</th>
+      <th>Previous State</th>
+      <th>Next State</th>
+      <th />
+    </tr>
+    {changes.map((change, i) => <StateChange {...change} key={change.date.valueOf()} />)}
+  </table>
 
 HistoryPanel.propTypes = {
   changes: PropTypes.array.isRequired
@@ -17,8 +27,8 @@ HistoryPanel.propTypes = {
 
 const buildHandlers = ({
   onInit: ({ setChanges }) => () => setChanges([]),
-  onDispatch: ({ setChanges, changes }) => ({action, diff}) => {
-    setChanges([...changes, {action, diff}])
+  onDispatch: ({ setChanges, changes }) => change => {
+    setChanges([change, ...changes.slice(0, 10)])
   }
 })
 
