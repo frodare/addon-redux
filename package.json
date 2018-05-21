@@ -19,11 +19,11 @@
   },
   "license": "MIT",
   "main": "dist/index.js",
-  "jsnext:main": "src/index.js",
   "dependencies": {
-    "@storybook/addons": "3.4.5",
     "jsondiffpatch": "^0.3.10",
-    "recompose": "^0.26.0"
+    "react-redux": "^5.0.7",
+    "recompose": "^0.26.0",
+    "redux": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

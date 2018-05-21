@@ -1,11 +1,11 @@
 import React from 'react'
-import addons from '@storybook/addons'
 import { mergeStateAction, setStateAction, WITH_REDUX_ENABLED } from './enhancer'
 import { Provider } from 'react-redux'
 import { diff as differ } from 'jsondiffpatch'
 import * as events from './events'
+import register from './register'
 
-export default (store, state) => {
+export default addons => (store, state) => {
   const channel = addons.getChannel()
 
   channel.on(events.SET_STATE, state => store.dispatch(setStateAction(state)))
