@@ -8,12 +8,17 @@ import Json from './Json'
 import * as events from '../events'
 import SetStateForm from './SetStateForm'
 
-export const StatePanel = props =>
-  <div>
-    {props.mode === 'edit' ? <EditMode {...props} /> : <ViewMode {...props} />}
-  </div>
+export const StatePanel = props => {
+  if (!props.enabled) return <h5>withRedux Not Enabled</h5>
+  return (
+    <div>
+      {props.mode === 'edit' ? <EditMode {...props} /> : <ViewMode {...props} />}
+    </div>
+  )
+}
 
 StatePanel.propTypes = {
+  enabled: PropTypes.bool.isRequired,
   state: PropTypes.object.isRequired,
   channel: PropTypes.object.isRequired,
   api: PropTypes.object.isRequired,
@@ -34,8 +39,14 @@ ViewMode.propTypes = {
 }
 
 const buildHandlers = ({
-  onInit: ({ setState }) => state => setState(state),
-  onDispatch: ({ setState, state }) => ({action, diff, prev, next}) => console.log('heard dispatch from state panel', diff, prev, next) || setState(next),
+  onInit: ({ setState, setEnabled }) => state => {
+    setState(state)
+    setEnabled(true)
+  },
+  onDispatch: ({ setState, state, setEnabled }) => ({action, diff, prev, next}) => {
+    setState(next)
+    setEnabled(true)
+  },
   setViewMode: ({ setMode }) => () => setMode('view'),
   setEditMode: ({ setMode }) => () => setMode('edit')
 })
@@ -45,6 +56,10 @@ const lifecycleHandlers = ({
     const { channel } = this.props
     channel.on(events.INIT, this.props.onInit)
     channel.on(events.ON_DISPATCH, this.props.onDispatch)
+    this.stopListeningOnStory = this.props.api.onStory((kind, story) => {
+      this.props.onInit({})
+      this.props.setEnabled(false)
+    })
   },
   componentWillUnmount () {
     const { channel } = this.props
@@ -56,6 +71,7 @@ const lifecycleHandlers = ({
 const enhance = compose(
   withState('state', 'setState', {}),
   withState('mode', 'setMode', 'view'),
+  withState('enabled', 'setEnabled', false),
   withHandlers(buildHandlers),
   lifecycle(lifecycleHandlers)
 )

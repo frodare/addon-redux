@@ -7,31 +7,45 @@ import withState from 'recompose/withState'
 import * as events from '../events'
 import StateChange from './StateChange'
 
-export const HistoryPanel = ({ changes }) =>
-  <table style={{fontSize: '14px', width: '100%'}}>
-    <tr>
-      <th>Date</th>
-      <th>Action Name</th>
-      <th>Action</th>
-      <th>State Diff</th>
-      <th>Previous State</th>
-      <th>Next State</th>
-      <th />
-    </tr>
-    {changes.map((change, i) => <StateChange {...change} key={change.date.valueOf()} />)}
-  </table>
+export const HistoryPanel = ({ changes, enabled }) => {
+  if (!enabled) return <h5>withRedux Not Enabled</h5>
+  return (
+    <table style={{fontSize: '14px', width: '100%'}}>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Action Name</th>
+          <th>Action</th>
+          <th>State Diff</th>
+          <th>Previous State</th>
+          <th>Next State</th>
+          <th />
+        </tr>
+      </thead>
+      <tbody>
+        {changes.map((change, i) => <StateChange {...change} key={change.date.valueOf()} />)}
+      </tbody>
+    </table>
+  )
+}
 
 HistoryPanel.propTypes = {
-  changes: PropTypes.array.isRequired
+  changes: PropTypes.array.isRequired,
+  enabled: PropTypes.bool.isRequired
 }
 
 const buildHandlers = ({
-  onInit: ({ setChanges }) => () => setChanges([]),
-  onDispatch: ({ setChanges, changes }) => change => {
+  onInit: ({ setChanges, setEnabled }) => () => {
+    setChanges([])
+    setEnabled(true)
+  },
+  onDispatch: ({ setChanges, changes, setEnabled }) => change => {
     if (!change) {
+      setEnabled(false)
       setChanges([])
     } else {
       setChanges([change, ...changes.slice(0, 10)])
+      setEnabled(true)
     }
   }
 })
@@ -57,6 +71,7 @@ const lifecycleHandlers = ({
 
 const enhance = compose(
   withState('changes', 'setChanges', []),
+  withState('enabled', 'setEnabled', false),
   withHandlers(buildHandlers),
   lifecycle(lifecycleHandlers)
 )
