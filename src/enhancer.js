@@ -12,22 +12,16 @@ export const setStateAction = state => ({
   state
 })
 
-const reducer = (state, action) => {
+const enhanceReducer = mainReducer => (state, action) => {
   switch (action.type) {
     case MERGE_STATE_TYPE: return {...state, ...action.state}
     case SET_STATE_TYPE: return {...action.state}
-    default: return state
+    default: return mainReducer(state, action)
   }
 }
 
-const reducerRunner = action => (state, reducer) => reducer(state, action)
-
-const compoundReducer = (reducers, state, action) => reducers.reduce(reducerRunner(action), state)
-
-const addReducer = mainReducer => (state, action) => compoundReducer([reducer, mainReducer], state, action)
-
 export default createStore => (reducer, state, enhancer) => {
-  const store = createStore(addReducer(reducer), state, enhancer)
+  const store = createStore(enhanceReducer(reducer), state, enhancer)
   let listener = null
 
   const enhanceDispatch = dispatch => action => {
