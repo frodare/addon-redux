@@ -22,28 +22,42 @@ StatePanel.propTypes = {
   state: PropTypes.object.isRequired,
   channel: PropTypes.object.isRequired,
   api: PropTypes.object.isRequired,
-  mode: PropTypes.string.isRequired
+  mode: PropTypes.string.isRequired,
+  actions: PropTypes.array.isRequired
 }
 
 const EditMode = props => <SetStateForm {...props} />
 
-const ViewMode = ({ state, setEditMode }) =>
+const ActionButton = ({ name, action, dispatch }) =>
+  <button onClick={dispatch} title={JSON.stringify(action, null, 2)}>{name}</button>
+
+ActionButton.propTypes = {
+  name: PropTypes.string.isRequired,
+  action: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
+}
+
+const ViewMode = ({ state, setEditMode, actions }) =>
   <div>
     <button onClick={setEditMode}>Edit</button>
+    {actions.map(ActionButton)}
     <Json data={state} />
   </div>
 
 ViewMode.propTypes = {
   state: PropTypes.object.isRequired,
-  setEditMode: PropTypes.func.isRequired
+  setEditMode: PropTypes.func.isRequired,
+  actions: PropTypes.array.isRequired
 }
 
 const buildHandlers = ({
-  onInit: ({ setState, setEnabled }) => state => {
+  onInit: ({ setState, setEnabled, setActions, channel }) => ({ state = {}, actions = [] }) => {
     setState(state)
+    actions = actions.map(action => ({...action, dispatch: () => channel.emit(events.DISPATCH, action.action)}))
+    setActions(actions)
     setEnabled(true)
   },
-  onDispatch: ({ setState, state, setEnabled }) => ({action, diff, prev, next}) => {
+  onDispatch: ({ setState, state, setEnabled }) => ({ action, diff, prev, next }) => {
     setState(next)
     setEnabled(true)
   },
@@ -70,6 +84,7 @@ const lifecycleHandlers = ({
 
 const enhance = compose(
   withState('state', 'setState', {}),
+  withState('actions', 'setActions', []),
   withState('mode', 'setMode', 'view'),
   withState('enabled', 'setEnabled', false),
   withHandlers(buildHandlers),
