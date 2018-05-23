@@ -25,9 +25,9 @@ npm install --save-dev addon-redux
 # Usage
 
 In order for the React Redux addon to function correctly:
-- it must be [registered](#Register) as a Storybook addon
-- its store [enhancer](#Enhancer) must to be used in the provided store
-- the [withRedux](#Decorator-withredux) decorator must be used in the story
+- it must be [registered](#register) as a Storybook addon
+- its store [enhancer](#enhancer) must to be used in the provided store
+- the [withRedux](#decorator-withredux) decorator must be used in the story
 
 ## Register
 
@@ -123,7 +123,7 @@ stories.add('default', () => <Container />
 
 ### Store Setting
 The __store__ setting is required and should be set with the store of your application.
-To function properly, the the store must be built including the [enhancer](#Enhancer) provided with the Redux Addon.
+To function properly, the the store must be built including the [enhancer](#enhancer) provided with the Redux Addon.
 
 ### State Setting
 The __state__ setting is optional. Use it if the default state returned from the store's reducers is not ideal or can be improved for the story.
