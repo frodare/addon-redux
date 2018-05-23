@@ -12,7 +12,7 @@ This addon is compatible with Storybook for React
 - Wraps stories with a React Redux Provider component
 - View and Edit the current state of the store
 - Provides Canned Action buttons which can dispatch predefined actions
-- Logs actions and keeps the time, action, previous state, next state and state diff
+- Logs actions and maintains the time, action, previous state, next state and state diff
 - Supports time travel to previous states
 - Filter actions entries by action and state diff
 
@@ -26,7 +26,7 @@ npm install --save-dev addon-redux
 
 In order for the React Redux addon to function correctly:
 - it must be [registered](#register) as a Storybook addon
-- its store [enhancer](#enhancer) must to be used in the provided store
+- its store [enhancer](#enhancer) must be used in the provided store
 - the [withRedux](#decorator-withredux) decorator must be used in the story
 
 ## Register
@@ -46,7 +46,7 @@ registerRedux(addons)
 To give the Redux Addon the ability to listen to and alter the store, its enhancer must be used when creating the store as shown below.
 
 ```js
-// Simplist use of the Redux Addon Enhancer
+// Simplest use of the Redux Addon Enhancer
 import { createStore, compose } from 'redux'
 import reducer from './your/reducer'
 import withReduxEnhancer from 'addon-redux/enhancer'
@@ -96,7 +96,7 @@ export default store
 
 The Redux Addon provides a decorator that wraps stories with a react redux provider component.
 The provided withRedux method is a factory that requires storybook's `addons` module.
-The results then needs to be invoked with the redux addon settings for the story.
+The result then needs to be invoked with the redux addon settings for the story.
 There are currently three supported settings: __store__, __state__, and __actions__.
 
 ```js
@@ -123,7 +123,7 @@ stories.add('default', () => <Container />
 
 ### Store Setting
 The __store__ setting is required and should be set with the store of your application.
-To function properly, the the store must be built including the [enhancer](#enhancer) provided with the Redux Addon.
+To function properly, the store must be built including the [enhancer](#enhancer) provided with the Redux Addon.
 
 ### State Setting
 The __state__ setting is optional. Use it if the default state returned from the store's reducers is not ideal or can be improved for the story.
