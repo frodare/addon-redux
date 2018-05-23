@@ -1,6 +1,6 @@
 {
   "name": "addon-redux",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Storybook addon for Redux Components",
   "author": "Charles Howard",
   "keywords": [
@@ -58,6 +58,6 @@
   },
   "peerDependencies": {
     "react": "*",
-    "prop-types": "^15.6.1"
+    "prop-types": "*"
   }
 }
