@@ -116,7 +116,6 @@ const withReduxSettings = {
 const withReduxDecorator = withRedux(addons)(withReduxSettings)
 
 const stories = storiesOf('Demo', module)
-stories.addDecorator(withKnobs)
 stories.addDecorator(withReduxDecorator)
 stories.add('default', () => <Container />
 ```
