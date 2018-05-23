@@ -2,7 +2,7 @@ const styles = `
 
 .addon-redux {
   font-family: -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   color: #444;
   width: 100%;
 }
@@ -85,17 +85,15 @@ const styles = `
   background: transparent;
 }
 
-.addon-redux-filter-row {
-  /* background: #f7f7f7; */
-
-}
-
 .addon-redux-history-panel td {
   vertical-align: top;
   border-bottom: 1px solid #eee;
   padding: 0.5em;
 }
 
+.redux-addon-state-json {
+  margin: 0.5em 1em;
+}
 
 `
 

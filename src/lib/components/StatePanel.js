@@ -4,7 +4,7 @@ import lifecycle from 'recompose/lifecycle'
 import withHandlers from 'recompose/withHandlers'
 import compose from 'recompose/compose'
 import withState from 'recompose/withState'
-import Json from './Json'
+import { CustomizedJsonTree } from './Json'
 import * as events from '../events'
 import SetStateForm from './SetStateForm'
 
@@ -40,10 +40,10 @@ ActionButton.propTypes = {
 const ViewMode = ({ state, setEditMode, actions }) =>
   <div className='addon-redux-state-panel'>
     <div className='addon-redux-button-bar'>
-      {actions.length ? actions.map(ActionButton) : <div className='addon-redux-no-actions'>NO CANNED ACTIONS</div>}
+      <button onClick={setEditMode}>Edit State</button>
+      {actions.length ? actions.map(ActionButton) : <span className='addon-redux-no-actions'>NO CANNED ACTIONS</span>}
     </div>
-    <Json data={state} />
-    <button onClick={setEditMode}>Edit State</button>
+    <div className='redux-addon-state-json'><CustomizedJsonTree data={state} /></div>
   </div>
 
 ViewMode.propTypes = {

@@ -11,7 +11,7 @@ import * as types from '../actionTypes'
 
 const mapSateChange = (change, i) => <StateChange {...change} key={change.date.valueOf()} />
 
-export const HistoryPanel = ({ changes, enabled, actionFilter, diffFilter, onDiffFilter, onActionFilter, changeIsVisible }) => {
+export const HistoryPanel = ({ changes, enabled, actionFilter, diffFilter, onDiffFilter, onActionFilter, changeIsVisible, reset }) => {
   if (!enabled) return <div className='addon-redux-disabled'>withRedux Not Enabled</div>
   return (
     <table className='addon-redux addon-redux-history-panel'>
@@ -22,7 +22,7 @@ export const HistoryPanel = ({ changes, enabled, actionFilter, diffFilter, onDif
           <th><input value={diffFilter} onChange={onDiffFilter} placeholder='STATE DIFF (filter)' /></th>
           <th>Previous State</th>
           <th>Next State</th>
-          <th />
+          <th><button onClick={reset}>RESET</button></th>
         </tr>
       </thead>
       <tbody>
@@ -69,7 +69,8 @@ const buildHandlers = ({
     if (actionFilter && matches(actionFilter, change.action)) return true
     if (diffFilter && matches(diffFilter, change.diff)) return true
     return false
-  }
+  },
+  reset: ({ setChanges }) => () => setChanges([])
 })
 
 const matches = (filter, obj) => {
