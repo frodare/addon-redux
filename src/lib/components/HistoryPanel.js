@@ -7,6 +7,7 @@ import withState from 'recompose/withState'
 import * as events from '../events'
 import StateChange from './StateChange'
 import { setStateAction } from '../../enhancer'
+import * as types from '../actionTypes'
 
 const mapSateChange = (change, i) => <StateChange {...change} key={change.date.valueOf()} />
 
@@ -36,16 +37,19 @@ HistoryPanel.propTypes = {
   enabled: PropTypes.bool.isRequired
 }
 
+const isWithReduxChange = change => change.action && Object.values(types).includes(change.action.type)
+
 const buildHandlers = ({
   onInit: ({ setChanges, setEnabled }) => () => {
     setChanges([])
     setEnabled(true)
   },
   onDispatch: ({ setChanges, changes, setEnabled, channel }) => change => {
+    console.log('running! ', types)
     if (!change) {
       setEnabled(false)
       setChanges([])
-    } else {
+    } else if (!isWithReduxChange(change)) {
       change = {
         ...change,
         dispatchSetState: () => channel.emit(events.DISPATCH, setStateAction(change.next))
