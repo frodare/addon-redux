@@ -6,24 +6,26 @@ import compose from 'recompose/compose'
 import withState from 'recompose/withState'
 import * as events from '../events'
 import StateChange from './StateChange'
+import { setStateAction } from '../../enhancer'
+
+const mapSateChange = (change, i) => <StateChange {...change} key={change.date.valueOf()} />
 
 export const HistoryPanel = ({ changes, enabled }) => {
-  if (!enabled) return <h5>withRedux Not Enabled</h5>
+  if (!enabled) return <div className='addon-redux-disabled'>withRedux Not Enabled</div>
   return (
-    <table style={{fontSize: '14px', width: '100%'}}>
+    <table className='addon-redux addon-redux-history-panel'>
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Action Name</th>
-          <th>Action</th>
-          <th>State Diff</th>
+          <th>Time</th>
+          <th><input placeholder='ACTION (filter)' /></th>
+          <th><input placeholder='STATE DIFF (filter)' /></th>
           <th>Previous State</th>
           <th>Next State</th>
           <th />
         </tr>
       </thead>
       <tbody>
-        {changes.map((change, i) => <StateChange {...change} key={change.date.valueOf()} />)}
+        {changes.map(mapSateChange)}
       </tbody>
     </table>
   )
@@ -39,12 +41,16 @@ const buildHandlers = ({
     setChanges([])
     setEnabled(true)
   },
-  onDispatch: ({ setChanges, changes, setEnabled }) => change => {
+  onDispatch: ({ setChanges, changes, setEnabled, channel }) => change => {
     if (!change) {
       setEnabled(false)
       setChanges([])
     } else {
-      setChanges([change, ...changes.slice(0, 10)])
+      change = {
+        ...change,
+        dispatchSetState: () => channel.emit(events.DISPATCH, setStateAction(change.next))
+      }
+      setChanges([change, ...changes.slice(0, 100)])
       setEnabled(true)
     }
   }

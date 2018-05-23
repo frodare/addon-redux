@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Json from './Json'
+import { format } from 'date-fns'
 
-export const StateChange = ({ date, action, diff, prev, next }) =>
+export const StateChange = ({ date, action, diff, prev, next, dispatchSetState }) =>
   <tr>
-    <td>{date}</td>
-    <td>{action.type}</td>
+    <td>{format(date, 'HH:mm:ss.SSS')}</td>
     <td><Json data={action} /></td>
-    <td><Json data={diff} /></td>
-    <td><Json data={prev} /></td>
-    <td><Json data={next} /></td>
-    <td><button>Load</button></td>
+    <td><Json data={diff} length={20} /></td>
+    <td><Json data={prev} length={20} /></td>
+    <td><Json data={next} length={20} /></td>
+    <td><button onClick={dispatchSetState}>Load</button></td>
   </tr>
 
 StateChange.propTypes = {
@@ -18,7 +18,8 @@ StateChange.propTypes = {
   action: PropTypes.object.isRequired,
   diff: PropTypes.object.isRequired,
   prev: PropTypes.object.isRequired,
-  next: PropTypes.object.isRequired
+  next: PropTypes.object.isRequired,
+  dispatchSetState: PropTypes.func.isRequired
 }
 
 export default StateChange

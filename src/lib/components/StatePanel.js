@@ -9,9 +9,9 @@ import * as events from '../events'
 import SetStateForm from './SetStateForm'
 
 export const StatePanel = props => {
-  if (!props.enabled) return <h5>withRedux Not Enabled</h5>
+  if (!props.enabled) return <div className='addon-redux-disabled'>withRedux Not Enabled</div>
   return (
-    <div>
+    <div className='addon-redux'>
       {props.mode === 'edit' ? <EditMode {...props} /> : <ViewMode {...props} />}
     </div>
   )
@@ -38,10 +38,12 @@ ActionButton.propTypes = {
 }
 
 const ViewMode = ({ state, setEditMode, actions }) =>
-  <div>
-    <button onClick={setEditMode}>Edit</button>
-    {actions.map(ActionButton)}
+  <div className='addon-redux-state-panel'>
+    <div className='addon-redux-button-bar'>
+      {actions.length ? actions.map(ActionButton) : <div className='addon-redux-no-actions'>NO CANNED ACTIONS</div>}
+    </div>
     <Json data={state} />
+    <button onClick={setEditMode}>Edit State</button>
   </div>
 
 ViewMode.propTypes = {

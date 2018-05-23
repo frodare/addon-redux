@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import JSONTree from 'react-json-tree'
+import { compose, withState, withHandlers } from 'recompose'
 
 const theme = {
   scheme: 'bright',
@@ -23,10 +24,32 @@ const theme = {
   base0F: '#be643c'
 }
 
-export const Json = ({ data }) => <JSONTree shouldExpandNode={false} theme={theme} data={data} />
+const jsonPreview = (data, length) => {
+  if (!data) return 'EMPTY'
+  const json = JSON.stringify(data)
+  if (json.length <= length) return json
+  return json.substring(0, length) + '...'
+}
+
+export const Json = ({ data, length = 40, expanded, toggle }) =>
+  <div className='addon-redux-json'>
+    <div onClick={toggle}>{jsonPreview(data, length)}</div>
+    { expanded ? <JSONTree hideRoot theme={theme} data={data} /> : null }
+  </div>
+
+const handlers = ({
+  expand: ({ setExpanded }) => () => setExpanded(true),
+  collapse: ({ setExpanded }) => () => setExpanded(false),
+  toggle: ({ setExpanded, expanded }) => () => setExpanded(!expanded)
+})
+
+const enhance = compose(
+  withState('expanded', 'setExpanded', false),
+  withHandlers(handlers)
+)
 
 Json.propTypes = {
   data: PropTypes.object.isRequired
 }
 
-export default Json
+export default enhance(Json)
