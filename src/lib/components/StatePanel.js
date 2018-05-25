@@ -29,7 +29,7 @@ StatePanel.propTypes = {
 const EditMode = props => <SetStateForm {...props} />
 
 const ActionButton = ({ name, action, dispatch }) =>
-  <button onClick={dispatch} title={JSON.stringify(action, null, 2)}>{name}</button>
+  <button key={name} onClick={dispatch} title={JSON.stringify(action, null, 2)}>{name}</button>
 
 ActionButton.propTypes = {
   name: PropTypes.string.isRequired,
