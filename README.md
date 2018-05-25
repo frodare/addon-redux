@@ -1,10 +1,10 @@
 # Storybook Redux Addon
 
-![Contribution guidelines for this project](docs/addon-redux-history-panel.png?v=1)
+Storybook Redux Addon aids in using redux backed components in your stories in [Storybook](https://storybook.js.org).
 
 ---
 
-Storybook Redux Addon aids in using redux backed components in your stories in [Storybook](https://storybook.js.org).
+![Contribution guidelines for this project](docs/addon-redux-history-panel.png?v=1)
 
 This addon is compatible with Storybook for React
 
