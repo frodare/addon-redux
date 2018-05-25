@@ -59,9 +59,8 @@ const buildHandlers = ({
     setActions(actions)
     setEnabled(true)
   },
-  onDispatch: ({ setState, state, setEnabled }) => ({ action, diff, prev, next }) => {
+  onDispatch: ({ setState, state }) => ({ action, diff, prev, next }) => {
     setState(next)
-    setEnabled(true)
   },
   setViewMode: ({ setMode }) => () => setMode('view'),
   setEditMode: ({ setMode }) => () => setMode('edit')

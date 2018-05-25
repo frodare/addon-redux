@@ -16,7 +16,7 @@ export const StateChange = ({ date, action, diff, prev, next, dispatchSetState }
 StateChange.propTypes = {
   date: PropTypes.string.isRequired,
   action: PropTypes.object.isRequired,
-  diff: PropTypes.object.isRequired,
+  diff: PropTypes.object,
   prev: PropTypes.object.isRequired,
   next: PropTypes.object.isRequired,
   dispatchSetState: PropTypes.func.isRequired

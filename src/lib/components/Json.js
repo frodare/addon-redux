@@ -31,7 +31,7 @@ const jsonPreview = (data, length) => {
   return json.substring(0, length) + '...'
 }
 
-export const CustomizedJsonTree = props => <JSONTree hideRoot theme={theme} {...props} />
+export const CustomizedJsonTree = props => props.data ? <JSONTree hideRoot theme={theme} {...props} /> : 'null'
 
 export const Json = ({ data, length = 40, expanded, toggle }) =>
   <div className='addon-redux-json'>
@@ -51,10 +51,14 @@ const enhance = compose(
 )
 
 Json.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
   length: PropTypes.number,
   expanded: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired
+}
+
+CustomizedJsonTree.propTypes = {
+  data: PropTypes.object
 }
 
 export default enhance(Json)

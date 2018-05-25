@@ -9,7 +9,7 @@ import StateChange from './StateChange'
 import { setStateAction } from '../../enhancer'
 import * as types from '../actionTypes'
 
-const mapSateChange = (change, i) => <StateChange {...change} key={change.date.valueOf()} />
+const mapSateChange = (change, i) => <StateChange {...change} key={change.id} />
 
 export const HistoryPanel = ({ changes, enabled, actionFilter, diffFilter, onDiffFilter, onActionFilter, changeIsVisible, reset }) => {
   if (!enabled) return <div className='addon-redux-disabled'>withRedux Not Enabled</div>
@@ -39,7 +39,8 @@ HistoryPanel.propTypes = {
   diffFilter: PropTypes.string.isRequired,
   onDiffFilter: PropTypes.func.isRequired,
   onActionFilter: PropTypes.func.isRequired,
-  changeIsVisible: PropTypes.func.isRequired
+  changeIsVisible: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired
 }
 
 const isWithReduxChange = change => change.action && Object.values(types).includes(change.action.type)
