@@ -1,5 +1,7 @@
 # Storybook Redux Addon
 
+![Contribution guidelines for this project](docs/addon-redux-history-panel.png)
+
 ---
 
 Storybook Redux Addon aids in using redux backed components in your stories in [Storybook](https://storybook.js.org).
@@ -146,3 +148,5 @@ The action key holds the action object that will be dispatched when the canned a
 }
 
 ```
+
+![Contribution guidelines for this project](docs/addon-redux-state-panel.png)
