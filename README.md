@@ -1,6 +1,6 @@
 # Storybook Redux Addon
 
-![Contribution guidelines for this project](docs/addon-redux-history-panel.png)
+![Contribution guidelines for this project](docs/addon-redux-history-panel.png?v=1)
 
 ---
 
@@ -149,4 +149,4 @@ The action key holds the action object that will be dispatched when the canned a
 
 ```
 
-![Contribution guidelines for this project](docs/addon-redux-state-panel.png)
+![Contribution guidelines for this project](docs/addon-redux-state-panel.png?v=1)
