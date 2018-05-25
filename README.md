@@ -2,9 +2,11 @@
 
 Storybook Redux Addon aids in using redux backed components in your stories in [Storybook](https://storybook.js.org).
 
+Ideally stories are only needed for non-redux connected components, not containers.  However, when writing stories for components of a redux application, it is common for the components to have conatiners as children which causes problems.  This is where the Redux Addon helps out by providing a decorator and helpful panels to support container components.
+
 ---
 
-![Contribution guidelines for this project](docs/addon-redux-history-panel.png?v=1)
+![Redux Addon History Panel](docs/addon-redux-history-panel.png?v=1)
 
 [__Demo__](https://github.com/frodare/addon-redux-example) project using the Redux Addon.
 
@@ -99,7 +101,7 @@ export default store
 ## Decorator (withRedux)
 
 The Redux Addon provides a decorator that wraps stories with a react redux provider component.
-The provided withRedux method is a factory that requires storybook's `addons` module.
+The provided `withRedux` method is a factory that requires storybook's `addons` module.
 The result then needs to be invoked with the redux addon settings for the story.
 There are currently three supported settings: __store__, __state__, and __actions__.
 
@@ -151,4 +153,27 @@ The action key holds the action object that will be dispatched when the canned a
 
 ```
 
-![Contribution guidelines for this project](docs/addon-redux-state-panel.png?v=1)
+![Redux Addon State Panel](docs/addon-redux-state-panel.png?v=1)
+
+## Custom Decorator
+
+Having to import the `store`, `addons` module and the `withRedux` decorator in every story file is not ideal for larger applications.  Instead, it is recomended to create a custom decorator in the storybook configuration folder that includes the `withRedux` setup.
+
+```js
+// .storybook/decorators.js
+import React from 'react'
+import addons from '@storybook/addons'
+import withReduxCore from 'addon-redux/withRedux'
+import { store } from './your/store'
+
+export const withRedux = (state, actions) => withReduxCore(addons)({
+  store, state, actions
+})
+```
+
+```js
+//custom decorator use in story
+import { withRedux } from '../../.storybook/decorators'
+...
+stories.addDecorator(withRedux(initialState, cannedActions))
+```
