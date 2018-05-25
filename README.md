@@ -6,6 +6,8 @@ Storybook Redux Addon aids in using redux backed components in your stories in [
 
 ![Contribution guidelines for this project](docs/addon-redux-history-panel.png?v=1)
 
+[__Demo__](https://github.com/frodare/addon-redux-example) project using the Redux Addon.
+
 This addon is compatible with Storybook for React
 
 # Features
