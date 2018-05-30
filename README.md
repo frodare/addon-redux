@@ -87,10 +87,12 @@ createMiddlewareEnhancer () => {
 }
 
 const createEnhancer = () => {
-  let enhancer = createMiddlewareEnhancer()
-  if (process.env.NODE_ENV !== 'production') enhancer = compose(enhancer, withReduxEnhancer)
-  // include any other enhancers as needed
-  return enhancer
+  const enhancers = []
+  enhancers.push(createMiddlewareEnhancer())
+  if (process.env.NODE_ENV !== 'production') {
+    enhancers.push(withReduxEnhancer)
+  }
+  return compose(...enhancers)
 }
 
 const store = createStore(reducer, createEnhancer())
