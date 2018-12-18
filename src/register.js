@@ -10,12 +10,12 @@ export default addons => {
 
     addons.addPanel('storybook/with_redux/state', {
       title: 'Redux State',
-      render: () => <StatePanel {...apiProps} />
+      render: ({ active }) => <StatePanel {...apiProps} active={active} />
     })
 
     addons.addPanel('storybook/with_redux/history', {
       title: 'Redux History',
-      render: () => <HistoryPanel {...apiProps} />
+      render: ({ active }) => <HistoryPanel {...apiProps} active={active} />
     })
   })
 }

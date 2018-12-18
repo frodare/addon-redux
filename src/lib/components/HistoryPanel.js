@@ -11,7 +11,8 @@ import * as types from '../actionTypes'
 
 const mapSateChange = (change, i) => <StateChange {...change} key={change.id} />
 
-export const HistoryPanel = ({ changes, enabled, actionFilter, diffFilter, onDiffFilter, onActionFilter, changeIsVisible, reset }) => {
+export const HistoryPanel = ({ changes, enabled, active, actionFilter, diffFilter, onDiffFilter, onActionFilter, changeIsVisible, reset }) => {
+  if (!active) return null
   if (!enabled) return <div className='addon-redux-disabled'>withRedux Not Enabled</div>
   return (
     <table className='addon-redux addon-redux-history-panel'>
@@ -35,6 +36,7 @@ export const HistoryPanel = ({ changes, enabled, actionFilter, diffFilter, onDif
 HistoryPanel.propTypes = {
   changes: PropTypes.array.isRequired,
   enabled: PropTypes.bool.isRequired,
+  active: PropTypes.bool.isRequired,
   actionFilter: PropTypes.string.isRequired,
   diffFilter: PropTypes.string.isRequired,
   onDiffFilter: PropTypes.func.isRequired,

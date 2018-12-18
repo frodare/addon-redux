@@ -9,6 +9,7 @@ import * as events from '../events'
 import SetStateForm from './SetStateForm'
 
 export const StatePanel = props => {
+  if (!props.active) return null
   if (!props.enabled) return <div className='addon-redux-disabled'>withRedux Not Enabled</div>
   return (
     <div className='addon-redux'>
@@ -19,6 +20,7 @@ export const StatePanel = props => {
 
 StatePanel.propTypes = {
   enabled: PropTypes.bool.isRequired,
+  active: PropTypes.bool.isRequired,
   state: PropTypes.object.isRequired,
   channel: PropTypes.object.isRequired,
   api: PropTypes.object.isRequired,
