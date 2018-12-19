@@ -14,6 +14,7 @@
     "url": "https://github.com/frodare/addon-redux.git"
   },
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "babel ./src -d ./",
     "dev": "babel ./src -d ./ -w"
   },
