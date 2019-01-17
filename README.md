@@ -161,7 +161,7 @@ The action key holds the action object that will be dispatched when the canned a
 
 ## Custom Decorator
 
-Having to import the `store`, `addons` module and the `withRedux` decorator in every story file is not ideal for larger applications.  Instead, it is recomended to create a custom decorator in the storybook configuration folder that includes the `withRedux` setup.
+Having to import the `store`, `Provider`, `addons` module, and the `withRedux` decorator in every story file is not ideal for larger applications.  Instead, it is recomended to create a custom decorator in the storybook configuration folder that includes the `withRedux` setup.
 
 ```js
 // .storybook/decorators.js
