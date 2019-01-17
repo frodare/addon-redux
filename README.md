@@ -109,6 +109,7 @@ There are currently three supported settings: __store__, __state__, and __action
 
 ```js
 import React from 'react'
+import { Provider } from 'react-redux'
 import { storiesOf } from '@storybook/react'
 import addons from '@storybook/addons'
 import withRedux from 'addon-redux/withRedux'
@@ -116,6 +117,7 @@ import store from './your/store'
 import Container from './your/container'
 
 const withReduxSettings = {
+  Provider,
   store,
   state: {optional: 'state to merge on start'},
   actions: [{name: 'Demo Action', action: {type: 'test'}}]
@@ -164,12 +166,13 @@ Having to import the `store`, `addons` module and the `withRedux` decorator in e
 ```js
 // .storybook/decorators.js
 import React from 'react'
+import { Provider } from 'react-redux'
 import addons from '@storybook/addons'
 import withReduxCore from 'addon-redux/withRedux'
 import { store } from './your/store'
 
 export const withRedux = (state, actions) => withReduxCore(addons)({
-  store, state, actions
+  Provider, store, state, actions
 })
 ```
 
