@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'react-redux'
 import { diff as differ } from 'jsondiffpatch'
 import * as events from './lib/events'
 import { mergeStateAction, setStateAction, WITH_REDUX_ENABLED } from './enhancer'
@@ -7,8 +6,11 @@ import { mergeStateAction, setStateAction, WITH_REDUX_ENABLED } from './enhancer
 let nextId = 0
 let initialized = false
 
-export default addons => ({store, state, actions}) => {
+export default addons => ({Provider, store, state, actions}) => {
   const channel = addons.getChannel()
+
+  if (!store) throw new Error('withRedux: store is required')
+  if (!Provider) throw new Error('withRedux: Provider is required as of v1.0.0')
 
   if (!initialized) {
     channel.on(events.SET_STATE, state => store.dispatch(setStateAction(state)))
