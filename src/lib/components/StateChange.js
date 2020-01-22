@@ -14,7 +14,10 @@ export const StateChange = ({ date, action, diff, prev, next, dispatchSetState }
   </tr>
 
 StateChange.propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]).isRequired,
   action: PropTypes.object.isRequired,
   diff: PropTypes.object,
   prev: PropTypes.object.isRequired,
