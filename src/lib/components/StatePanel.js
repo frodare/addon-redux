@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { STORY_CHANGED } from '@storybook/core-events';
 import lifecycle from 'recompose/lifecycle'
 import withHandlers from 'recompose/withHandlers'
 import compose from 'recompose/compose'
@@ -73,7 +74,7 @@ const lifecycleHandlers = ({
     const { channel } = this.props
     channel.on(events.INIT, this.props.onInit)
     channel.on(events.ON_DISPATCH, this.props.onDispatch)
-    this.stopListeningOnStory = this.props.api.onStory((kind, story) => {
+    this.stopListeningOnStory = this.props.api.on(STORY_CHANGED, () => {
       this.props.onInit({})
       this.props.setEnabled(false)
     })
