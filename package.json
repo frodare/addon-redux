@@ -46,7 +46,7 @@
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "standard": "^11.0.1",
-    "eslint": "4.8.0",
+    "eslint": "4.18.2",
     "eslint-config-standard": "10.2.1",
     "eslint-config-standard-react": "5.0.0",
     "eslint-plugin-import": "2.7.0",
