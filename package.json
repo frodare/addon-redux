@@ -24,19 +24,19 @@
   ],
   "scripts": {
     "clean": "rimraf ./dist",
-    "buildBabel": "concurrently \"npm buildBabel:cjs\" \"npm buildBabel:esm\"",
+    "buildBabel": "concurrently \"yarn buildBabel:cjs\" \"yarn buildBabel:esm\"",
     "buildBabel:cjs": "babel ./src -d ./dist/cjs --extensions \".js,.jsx,.ts,.tsx\"",
     "buildBabel:esm": "babel ./src -d ./dist/esm --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
     "buildTsc": "tsc --declaration --emitDeclarationOnly --outDir ./dist/ts",
-    "prebuild": "npm clean",
-    "build": "concurrently \"npm buildBabel\" \"npm buildTsc\"",
-    "build:watch": "concurrently \"npm buildBabel:esm -- --watch\" \"npm buildTsc -- --watch\"",
+    "prebuild": "yarn clean",
+    "build": "concurrently \"yarn buildBabel\" \"yarn buildTsc\"",
+    "build:watch": "concurrently \"yarn buildBabel:esm -- --watch\" \"yarn buildTsc -- --watch\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "start": "concurrently \"npm build:watch\" \"npm storybook -- --no-manager-cache --quiet\"",
+    "start": "concurrently \"yarn build:watch\" \"yarn storybook -- --no-manager-cache --quiet\"",
     "build-storybook": "build-storybook",
     "prerelease": "zx scripts/prepublish-checks.mjs",
-    "release": "npm build && auto shipit",
+    "release": "yarn build && auto shipit",
     "eject-ts": "zx scripts/eject-typescript.mjs",
     "lint": "ts-standard"
   },
@@ -48,11 +48,15 @@
     "@babel/preset-typescript": "^7.13.0",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/react": "^6.2.9",
+    "@types/jsoneditor": "^8.6.0",
     "auto": "^10.3.0",
     "babel-loader": "^8.1.0",
     "boxen": "^5.0.1",
     "concurrently": "^6.2.0",
     "dedent": "^0.7.0",
+    "jsondiffpatch": "^0.4.1",
+    "jsoneditor": "^9.5.0",
+    "jsoneditor-react": "^3.1.1",
     "prettier": "^2.3.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -62,11 +66,7 @@
     "rimraf": "^3.0.2",
     "ts-standard": "^10.0.0",
     "typescript": "^4.2.4",
-    "zx": "^1.14.1",
-    "@types/jsoneditor": "^8.6.0",
-    "jsondiffpatch": "^0.4.1",
-    "jsoneditor": "^9.5.0",
-    "jsoneditor-react": "^3.1.1"
+    "zx": "^1.14.1"
   },
   "peerDependencies": {
     "@storybook/addons": "^6.2.9",
@@ -97,6 +97,5 @@
     ],
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
