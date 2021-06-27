@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-kit",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "description": "everything you need to build a Storybook addon",
   "keywords": [
     "storybook-addons",
