@@ -1,7 +1,8 @@
 {
-  "name": "storybook-addon-kit",
+"name": "addon-redux",
   "version": "2.0.1-0",
-  "description": "everything you need to build a Storybook addon",
+  "description": "Storybook addon for Redux Components",
+  "author": "Charles Howard",
   "keywords": [
     "storybook-addons",
     "redux",
@@ -9,9 +10,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/storybookjs/storybook-addon-kit"
+    "url": "https://github.com/frodare/addon-redux.git"
   },
-  "author": "winkerVSbecks",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
