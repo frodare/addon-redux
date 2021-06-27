@@ -1,6 +1,6 @@
 {
   "name": "addon-redux",
-  "version": "2.0.0-3",
+  "version": "2.0.0-4",
   "description": "Storybook addon for Redux Components",
   "author": "Charles Howard",
   "keywords": [
@@ -54,7 +54,6 @@
     "boxen": "^5.0.1",
     "concurrently": "^6.2.0",
     "dedent": "^0.7.0",
-    "jsondiffpatch": "^0.4.1",
     "prettier": "^2.3.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -96,6 +95,7 @@
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   },
   "dependencies": {
+    "jsondiffpatch": "^0.4.1",
     "jsoneditor": "^9.5.0",
     "jsoneditor-react": "^3.1.1"
   }
