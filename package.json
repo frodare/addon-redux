@@ -4,8 +4,8 @@
   "description": "everything you need to build a Storybook addon",
   "keywords": [
     "storybook-addons",
-    "style",
-    "test"
+    "redux",
+    "react"
   ],
   "repository": {
     "type": "git",
