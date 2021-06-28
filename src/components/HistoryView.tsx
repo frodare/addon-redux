@@ -6,7 +6,6 @@ import { format } from 'date-fns'
 import { styled } from '@storybook/theming'
 
 const reducer = (events: OnDispatchEvent[], event: OnDispatchEvent): OnDispatchEvent[] => {
-  console.log({ events, event })
   return [...events, event]
 }
 

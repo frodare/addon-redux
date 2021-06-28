@@ -5,7 +5,7 @@ import { AnyAction } from 'redux'
 import { diff as differ } from 'jsondiffpatch'
 import { EVENTS } from './constants'
 import { AddonReduxStore, OnDispatchEvent, State, StoreListener } from './typings'
-import { mergeStateAction, setStateAction } from './actionCreators'
+import { setStateAction } from './actionCreators'
 
 let nextId = 0
 
@@ -33,9 +33,6 @@ export default ({ UserProvider, store, state, actions }: Args): DecoratorFunctio
     if (store.__WITH_REDUX_ENABLED__ === undefined) throw new Error('withRedux enhancer is not enabled in the store')
 
     store.__WITH_REDUX_ENABLED__?.listenToStateChange(onDispatchListener)
-
-    emit(EVENTS.INIT, { state: store.getState(), actions })
-    store.dispatch(mergeStateAction(state))
 
     return (<UserProvider store={store}> {story()} </UserProvider>)
   }
