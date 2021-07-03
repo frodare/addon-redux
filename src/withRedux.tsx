@@ -19,14 +19,14 @@ interface Args {
 export default ({ UserProvider, store, state, actions }: Args): DecoratorFunction => {
   return (story: StoryFunction) => {
     const emit = useChannel({
-      [EVENTS.SET_STATE]: (state: State) => store.dispatch(setStateAction(state)),
+      [EVENTS.SET_STATE]: (stateJson: string) => store.dispatch(setStateAction(JSON.parse(stateJson))),
       [EVENTS.DISPATCH]: (action: AnyAction) => store.dispatch(action)
     })
 
     const onDispatchListener: StoreListener = (action, prev, next): void => {
       const diff = differ(prev, next)
       const date = new Date()
-      const event: OnDispatchEvent = { id: nextId++, date, action, diff, prev, next }
+      const event: OnDispatchEvent = { id: nextId++, date, action, diff, prev, next, state: JSON.stringify(next) }
       emit(EVENTS.ON_DISPATCH, event)
     }
 

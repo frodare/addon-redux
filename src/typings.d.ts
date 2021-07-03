@@ -28,4 +28,5 @@ interface OnDispatchEvent {
   diff: Delta | undefined
   prev: State
   next: State
+  state: string
 }

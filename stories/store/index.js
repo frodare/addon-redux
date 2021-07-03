@@ -1,6 +1,5 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 import reducer from './reducer'
-// import createMiddlewareEnhancer from './middlewareEnhancer'
 import withReduxEnhancer from '../../dist/esm/enhancer'
 
 const createMiddlewareEnhancer = () => {

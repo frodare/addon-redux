@@ -8,11 +8,11 @@ const StateView: FC<{}> = () => {
   const [state, setState] = useAddonState<State>(STATE_ID_STORE)
 
   const emit = useChannel({
-    [EVENTS.ON_DISPATCH]: (ev: OnDispatchEvent) => setState(ev.next)
+    [EVENTS.ON_DISPATCH]: (ev: OnDispatchEvent) => setState(JSON.parse(ev.state))
   })
 
   const onChange: ChangeHandler = value => {
-    emit(EVENTS.SET_STATE, value)
+    emit(EVENTS.SET_STATE, JSON.stringify(value))
   }
 
   return <ObjectEditor value={state} onChange={onChange} />

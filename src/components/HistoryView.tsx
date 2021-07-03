@@ -94,7 +94,7 @@ const Row: FC<RowProps> = ({ date, action, diff, prev, next, emit }) => {
       <TdStyle><Json data={diff} /></TdStyle>
       <TdStyle><Json data={prev} /></TdStyle>
       <TdStyle><Json data={next} /></TdStyle>
-      <TdStyle><button onClick={() => emit(EVENTS.SET_STATE, next)}>Load</button></TdStyle>
+      <TdStyle><button onClick={() => emit(EVENTS.SET_STATE, JSON.stringify(next))}>Load</button></TdStyle>
     </tr>
   )
 }
