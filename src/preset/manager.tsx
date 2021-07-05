@@ -1,11 +1,10 @@
 import React from 'react'
 import { addons, types } from '@storybook/addons'
 import { AddonPanel } from '@storybook/components'
+
 import StateView from '../components/StateView'
 import { PanelComponent } from '../typings'
-
 import { color } from '@storybook/theming'
-
 import { ADDON_ID, PANEL_ID_HISTORY, PANEL_ID_STORE } from '../constants'
 import HistoryView from '../components/HistoryView'
 

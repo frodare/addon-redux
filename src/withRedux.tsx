@@ -5,12 +5,12 @@ import { AnyAction } from 'redux'
 import { diff as differ } from 'jsondiffpatch'
 import { EVENTS } from './constants'
 import { AddonReduxStore, OnDispatchEvent, State, StoreListener } from './typings'
-import { setStateAction } from './actionCreators'
+import { mergeStateAction, setStateAction } from './actionCreators'
 
 let nextId = 0
 
 interface Args {
-  UserProvider: any // FIXME
+  UserProvider: any
   store: AddonReduxStore
   state: State
   actions: any
@@ -20,6 +20,7 @@ export default ({ UserProvider, store, state, actions }: Args): DecoratorFunctio
   return (story: StoryFunction) => {
     const emit = useChannel({
       [EVENTS.SET_STATE]: (stateJson: string) => store.dispatch(setStateAction(JSON.parse(stateJson))),
+      [EVENTS.MERGE_STATE]: (stateJson: string) => store.dispatch(mergeStateAction(JSON.parse(stateJson))),
       [EVENTS.DISPATCH]: (action: AnyAction) => store.dispatch(action)
     })
 

@@ -46,7 +46,6 @@ const ObjectEditor: FC<Props> = ({ value, onChange }) => {
 
   if (!equals(valueRef.current, value)) {
     valueRef.current = value
-    console.log('updating with', value)
     editorRef.current?.update(value)
   }
 
