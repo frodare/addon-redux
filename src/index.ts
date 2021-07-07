@@ -5,6 +5,7 @@ if ((module?.hot?.decline) != null) {
 
 export { default as enhancer } from './enhancer'
 export { default as withRedux } from './withRedux'
+export { PARAM_MERGE_STATE } from './constants'
 
 // make it work with --isolatedModules
 export default {}
