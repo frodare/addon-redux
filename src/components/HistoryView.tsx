@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { OnDispatchEvent } from 'src/typings'
 import { ACTIONS_TYPES, EVENTS, STATE_ID_HISTORY } from '../constants'
 import { useAddonState, useChannel } from '@storybook/api'
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 import { styled } from '@storybook/theming'
 
 const reducer = (events: OnDispatchEvent[], event: OnDispatchEvent): OnDispatchEvent[] => {
@@ -73,9 +73,11 @@ const Header: FC<{}> = () => {
   )
 }
 
-const formatDate = (d: any): string => {
+const s = (i: number): string => String(i)
+
+const formatDate = (d: Date): string => {
   try {
-    return format(d, 'HH:mm:ss.SSS')
+    return s(d.getHours()) + ':' + s(d.getMinutes()) + ':' + s(d.getSeconds()) + '.' + s(d.getMilliseconds())
   } catch (err) {
     return ''
   }
