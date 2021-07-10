@@ -20,6 +20,10 @@ const enhanceReducer: Enhancer<Reducer> = mainReducer => (state, action) => {
   }
 }
 
+let _store: any
+
+export const getStore = (): any => _store
+
 const enhancer = (createStore: StoreCreator) => (reducer: Reducer, state: State, enhancer: StoreEnhancer) => {
   const store = createStore(enhanceReducer(reducer), state, enhancer)
 
@@ -32,13 +36,17 @@ const enhancer = (createStore: StoreCreator) => (reducer: Reducer, state: State,
 
   let listener: StoreListener = null
 
-  return {
+  const enhancedStore = {
     ...store,
     dispatch: enhanceDispatch(store.dispatch),
     __WITH_REDUX_ENABLED__: {
       listenToStateChange: (l: StoreListener) => (listener = l)
     }
   }
+
+  _store = enhancedStore
+
+  return enhancedStore
 }
 
 export default enhancer

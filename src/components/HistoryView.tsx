@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react'
 import { OnDispatchEvent } from 'src/typings'
 import { ACTIONS_TYPES, EVENTS, STATE_ID_HISTORY } from '../constants'
 import { useAddonState, useChannel } from '@storybook/api'
-// import { format } from 'date-fns'
 import { styled } from '@storybook/theming'
 
 const reducer = (events: OnDispatchEvent[], event: OnDispatchEvent): OnDispatchEvent[] => {

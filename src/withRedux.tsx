@@ -1,23 +1,20 @@
 import { StoryFn as StoryFunction, useChannel, DecoratorFunction } from '@storybook/addons'
 
 import React from 'react'
+import { Provider } from 'react-redux'
 import { AnyAction } from 'redux'
 import { diff as differ } from 'jsondiffpatch'
 import { EVENTS } from './constants'
-import { AddonReduxStore, OnDispatchEvent, State, StoreListener } from './typings'
+import { OnDispatchEvent, StoreListener } from './typings'
 import { mergeStateAction, setStateAction } from './actionCreators'
+import { getStore } from './enhancer'
 
 let nextId = 0
 
-interface Args {
-  UserProvider: any
-  store: AddonReduxStore
-  state: State
-  actions: any
-}
-
-export default ({ UserProvider, store, state, actions }: Args): DecoratorFunction => {
+export default (): DecoratorFunction => {
   return (story: StoryFunction) => {
+    const store = getStore()
+
     const emit = useChannel({
       [EVENTS.SET_STATE]: (stateJson: string) => store.dispatch(setStateAction(JSON.parse(stateJson))),
       [EVENTS.MERGE_STATE]: (stateJson: string) => store.dispatch(mergeStateAction(JSON.parse(stateJson))),
@@ -35,6 +32,6 @@ export default ({ UserProvider, store, state, actions }: Args): DecoratorFunctio
 
     store.__WITH_REDUX_ENABLED__?.listenToStateChange(onDispatchListener)
 
-    return (<UserProvider store={store}> {story()} </UserProvider>)
+    return (<Provider store={store}> {story()} </Provider>)
   }
 }
