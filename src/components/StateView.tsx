@@ -1,7 +1,7 @@
 import React, { FC, useRef, useEffect } from 'react'
 import { State, OnDispatchEvent } from 'src/typings'
 import ObjectEditor, { ChangeHandler } from './ObjectEditor'
-import { EVENTS, STATE_ID_STORE, PARAM_MERGE_STATE } from '../constants'
+import { EVENTS, STATE_ID_STORE, PARAM_REDUX_MERGE_STATE } from '../constants'
 import { useAddonState, useChannel, useParameter, useStorybookApi } from '@storybook/api'
 
 const s = (s: string | undefined): string => s === undefined ? '' : s
@@ -9,7 +9,7 @@ const s = (s: string | undefined): string => s === undefined ? '' : s
 const useSetStateFromParameter = (storyId: string): void => {
   const emit = useChannel({})
   const storyIdRef = useRef<string>('')
-  const mergeState = useParameter<string>(PARAM_MERGE_STATE, '')
+  const mergeState = useParameter<string>(PARAM_REDUX_MERGE_STATE, '')
   useEffect(() => {
     if (mergeState !== '' && storyId !== '' && storyIdRef.current !== storyId) {
       storyIdRef.current = storyId
