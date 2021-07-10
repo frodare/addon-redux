@@ -1,8 +1,8 @@
 ![Redux Addon](docs/addon-redux-header.png)
 
-Storybook Redux Addon aids in using redux backed components in your stories in [Storybook](https://storybook.js.org).
+`addon-redux` is a [Storybook](https://storybook.js.org) addon that helps when building stories using components that use redux state.
 
-Ideally stories are only needed for non-redux connected components, not containers.  However, when writing stories for components of a redux application, it is common for the components to have conatiners as children which causes problems.  This is where the Redux Addon helps out by providing a decorator and helpful panels to support container components.
+Ideally stories are only needed for non-redux connected components, not containers.  However, when writing stories for components of a redux application, it is common for the components to have conatiners as children which causes problems.  This is where `addon-redux` helps out by providing a decorator and helpful panels to support container components.
 
 
 This documentation is for version 2, [click here](docs/v1/README.md) for information on setting up version 1.
@@ -35,7 +35,7 @@ npm install addon-redux
 In order for the React Redux addon to function correctly:
 - it must be [registered](#register) as a Storybook addon
 - its store [enhancer](#enhancer) must be used in the app's store
-- the store must be imported in preview.js
+- the store must be [imported](#import-the-store-previewjs) in preview.js
 
 ## Register
 
@@ -107,7 +107,7 @@ const store = createStore(reducer, createEnhancer())
 export default store
 ```
 
-## Preview.js (import the store)
+## Import the Store (Preview.js)
 
 The store must be imported in `./storybook/preivew.js` so that it will be setup and ready for the stories. 
 This addon will automatically wrap stories with the Redux provider as long as the enhancer has been setup as shown above.
@@ -122,3 +122,28 @@ module.exports = {
 ```
 
 ![Redux Addon History Panel](docs/v2/addon-redux-history-panel.png?v=1)
+
+## Parameters
+
+`addon-redux` currently supports one [storybook parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that can be used to change the redux state on story load, `PARAM_REDUX_MERGE_STATE`.  This parameter takes a JSON string that will be parsed and spread on top of the current store's state.
+
+```js
+// example story using PARAM_REDUX_MERGE_STATE
+import React from 'react'
+import MyComponent from './MyComponent'
+import { PARAM_MERGE_STATE } from 'addon-redux'
+
+export default {
+  title: 'MyComponent',
+  component: MyComponent,
+  parameters: {
+    [PARAM_MERGE_STATE]: '{"foo": {"bar": "baz"}}'
+  }
+};
+
+const Template = (args) => <MyComponent {...args} />;
+
+export const All = Template.bind({});
+All.args = {};
+```
+
