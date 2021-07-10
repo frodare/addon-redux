@@ -6,7 +6,7 @@ Ideally stories are only needed for non-redux connected components, not containe
 
 ---
 
-![Redux Addon History Panel](docs/addon-redux-history-panel.png?v=1)
+![Redux Addon History Panel](addon-redux-history-panel.png?v=1)
 
 [__Demo__](https://github.com/frodare/addon-redux-example) project using the Redux Addon.
 
@@ -157,7 +157,7 @@ The action key holds the action object that will be dispatched when the canned a
 
 ```
 
-![Redux Addon State Panel](docs/addon-redux-state-panel.png?v=1)
+![Redux Addon State Panel](addon-redux-state-panel.png?v=1)
 
 ## Custom Decorator
 
