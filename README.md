@@ -5,10 +5,11 @@ Storybook Redux Addon aids in using redux backed components in your stories in [
 Ideally stories are only needed for non-redux connected components, not containers.  However, when writing stories for components of a redux application, it is common for the components to have conatiners as children which causes problems.  This is where the Redux Addon helps out by providing a decorator and helpful panels to support container components.
 
 
-This documentation is for version 2, [click here](docs/README-v1.md) for information on setting up version 1.
+This documentation is for version 2, [click here](docs/v1/README.md) for information on setting up version 1.
 
 
-![Redux Addon History Panel](docs/addon-redux-history-panel.png?v=1)
+
+![Redux Addon State Panel](docs/v2/addon-redux-state-panel.png?v=1)
 
 [__Demo__](https://github.com/frodare/addon-redux-example) project using the Redux Addon.
 
@@ -33,7 +34,7 @@ npm install addon-redux
 
 In order for the React Redux addon to function correctly:
 - it must be [registered](#register) as a Storybook addon
-- its store [enhancer](#enhancer) must be used in the provided store
+- its store [enhancer](#enhancer) must be used in the app's store
 - the store must be imported in preview.js
 
 ## Register
@@ -119,3 +120,5 @@ module.exports = {
   decorators: []
 }
 ```
+
+![Redux Addon History Panel](docs/v2/addon-redux-history-panel.png?v=1)
