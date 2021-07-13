@@ -9,10 +9,15 @@ const s = (s: string | undefined): string => s === undefined ? '' : s
 const useSetStateFromParameter = (storyId: string): void => {
   const emit = useChannel({})
   const storyIdRef = useRef<string>('')
+  const mergeStateRef = useRef<string>('')
   const mergeState = useParameter<string>(PARAM_REDUX_MERGE_STATE, '')
+
   useEffect(() => {
-    if (mergeState !== '' && storyId !== '' && storyIdRef.current !== storyId) {
-      storyIdRef.current = storyId
+    const storyChanged = storyId !== '' && storyIdRef.current !== storyId
+    const mergeStateChanged = mergeState !== mergeStateRef.current
+    storyIdRef.current = storyId
+    mergeStateRef.current = mergeState
+    if (mergeState !== '' && (storyChanged || mergeStateChanged)) {
       emit(EVENTS.MERGE_STATE, mergeState)
     }
   }, [mergeState, storyId, storyIdRef])

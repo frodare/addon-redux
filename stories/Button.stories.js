@@ -1,11 +1,12 @@
 import React from 'react'
 import { Button } from './Button'
+import { PARAM_REDUX_MERGE_STATE } from '../src/constants'
 
 export default {
   title: 'Example/Button',
   component: Button,
   parameters: {
-    addonReduxMergeState: '{"foo": {"bar": "baz"}}'
+    [PARAM_REDUX_MERGE_STATE]: '{"foo": {"bar": "baz"}}'
   }
 }
 
