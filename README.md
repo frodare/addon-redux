@@ -131,13 +131,13 @@ module.exports = {
 // example story using PARAM_REDUX_MERGE_STATE
 import React from 'react'
 import MyComponent from './MyComponent'
-import { PARAM_MERGE_STATE } from 'addon-redux'
+import { PARAM_REDUX_MERGE_STATE } from 'addon-redux'
 
 export default {
   title: 'MyComponent',
   component: MyComponent,
   parameters: {
-    [PARAM_MERGE_STATE]: '{"foo": {"bar": "baz"}}'
+    [PARAM_REDUX_MERGE_STATE]: '{"foo": {"bar": "baz"}}'
   }
 };
 
