@@ -30,3 +30,7 @@ interface OnDispatchEvent {
   next: State
   state: string
 }
+
+interface OnInitEvent {
+  state: string
+}

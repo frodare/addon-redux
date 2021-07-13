@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { AnyAction } from 'redux'
 import { diff as differ } from 'jsondiffpatch'
 import { EVENTS } from './constants'
-import { OnDispatchEvent, StoreListener } from './typings'
+import { OnDispatchEvent, OnInitEvent, StoreListener } from './typings'
 import { mergeStateAction, setStateAction } from './actionCreators'
 import { getStore } from './enhancer'
 
@@ -27,6 +27,9 @@ export default (): DecoratorFunction => {
       const event: OnDispatchEvent = { id: nextId++, date, action, diff, prev, next, state: JSON.stringify(next) }
       emit(EVENTS.ON_DISPATCH, event)
     }
+
+    const initEvent: OnInitEvent = { state: JSON.stringify(store.getState()) }
+    emit(EVENTS.INIT, initEvent)
 
     if (store.__WITH_REDUX_ENABLED__ === undefined) throw new Error('withRedux enhancer is not enabled in the store')
 
