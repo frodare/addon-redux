@@ -87,15 +87,23 @@ interface RowProps extends OnDispatchEvent {
   emit: (eventName: string, ...args: any[]) => void
 }
 
+const parseJson = (json: string): any => {
+  try {
+    return JSON.parse(json ?? '{}')
+  } catch (err) {
+    return {}
+  }
+}
+
 const Row: FC<RowProps> = ({ date, action, diff, prev, state, emit }) => {
   return (
     <tr>
       <TdStyle>{formatDate(date)}</TdStyle>
       <TdStyle><b>{action.type}</b></TdStyle>
       <TdStyle><Json data={action} /></TdStyle>
-      <TdStyle><Json data={JSON.parse(diff)} /></TdStyle>
-      <TdStyle><Json data={JSON.parse(prev)} /></TdStyle>
-      <TdStyle><Json data={JSON.parse(state)} /></TdStyle>
+      <TdStyle><Json data={parseJson(diff)} /></TdStyle>
+      <TdStyle><Json data={parseJson(prev)} /></TdStyle>
+      <TdStyle><Json data={parseJson(state)} /></TdStyle>
       <TdStyle><button onClick={() => emit(EVENTS.SET_STATE, state)}>Load</button></TdStyle>
     </tr>
   )
