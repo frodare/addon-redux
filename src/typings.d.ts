@@ -1,4 +1,3 @@
-import { Delta } from 'jsondiffpatch'
 import { AnyAction, Store } from 'redux'
 
 declare module 'global'
@@ -25,9 +24,8 @@ interface OnDispatchEvent {
   id: number
   date: Date
   action: AnyAction
-  diff: Delta | undefined
-  prev: State
-  next: State
+  diff: string
+  prev: string
   state: string
 }
 

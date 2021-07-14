@@ -5,7 +5,8 @@ import { useAddonState, useChannel } from '@storybook/api'
 import { styled } from '@storybook/theming'
 
 const reducer = (events: OnDispatchEvent[], event: OnDispatchEvent): OnDispatchEvent[] => {
-  return [...events, event]
+  if (events === undefined) events = []
+  return [...(events), event]
 }
 
 const JsonCellStyle = styled.div(({ theme }) => ({
@@ -65,8 +66,8 @@ const Header: FC<{}> = () => {
       <ThStyle>Type</ThStyle>
       <ThStyle>Action</ThStyle>
       <ThStyle>Diff</ThStyle>
-      <ThStyle>Previous</ThStyle>
-      <ThStyle>Next</ThStyle>
+      <ThStyle>Previous State</ThStyle>
+      <ThStyle>Current State</ThStyle>
       <ThStyle> </ThStyle>
     </tr>
   )
@@ -86,16 +87,16 @@ interface RowProps extends OnDispatchEvent {
   emit: (eventName: string, ...args: any[]) => void
 }
 
-const Row: FC<RowProps> = ({ date, action, diff, prev, next, emit }) => {
+const Row: FC<RowProps> = ({ date, action, diff, prev, state, emit }) => {
   return (
     <tr>
       <TdStyle>{formatDate(date)}</TdStyle>
       <TdStyle><b>{action.type}</b></TdStyle>
       <TdStyle><Json data={action} /></TdStyle>
-      <TdStyle><Json data={diff} /></TdStyle>
-      <TdStyle><Json data={prev} /></TdStyle>
-      <TdStyle><Json data={next} /></TdStyle>
-      <TdStyle><button onClick={() => emit(EVENTS.SET_STATE, JSON.stringify(next))}>Load</button></TdStyle>
+      <TdStyle><Json data={JSON.parse(diff)} /></TdStyle>
+      <TdStyle><Json data={JSON.parse(prev)} /></TdStyle>
+      <TdStyle><Json data={JSON.parse(state)} /></TdStyle>
+      <TdStyle><button onClick={() => emit(EVENTS.SET_STATE, state)}>Load</button></TdStyle>
     </tr>
   )
 }

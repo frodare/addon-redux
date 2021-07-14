@@ -1,6 +1,6 @@
-import { Reducer, StoreCreator, StoreEnhancer } from 'redux'
+import { AnyAction, PreloadedState, Reducer, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux'
 import { ACTIONS_TYPES } from './constants'
-import { Dispatcher, Enhancer, State, StoreListener } from './typings'
+import { Dispatcher, Enhancer, StoreListener } from './typings'
 
 const mergeReducer: Reducer = (state, action) => {
   const rootState = state
@@ -24,8 +24,8 @@ let _store: any
 
 export const getStore = (): any => _store
 
-const enhancer = (createStore: StoreCreator) => (reducer: Reducer, state: State, enhancer: StoreEnhancer) => {
-  const store = createStore(enhanceReducer(reducer), state, enhancer)
+const enhancer: StoreEnhancer<any> = (createStore: StoreEnhancerStoreCreator) => <S, A extends AnyAction>(reducer: Reducer<S, A>, state?: PreloadedState<S>) => {
+  const store = createStore(enhanceReducer(reducer), state)
 
   const enhanceDispatch: Enhancer<Dispatcher> = dispatch => action => {
     const prev = store.getState()

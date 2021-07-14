@@ -21,10 +21,17 @@ export default (): DecoratorFunction => {
       [EVENTS.DISPATCH]: (action: AnyAction) => store.dispatch(action)
     })
 
-    const onDispatchListener: StoreListener = (action, prev, next): void => {
-      const diff = differ(prev, next)
+    const onDispatchListener: StoreListener = (action, prev, state): void => {
+      const diff = differ(prev, state)
       const date = new Date()
-      const event: OnDispatchEvent = { id: nextId++, date, action, diff, prev, next, state: JSON.stringify(next) }
+      const event: OnDispatchEvent = {
+        id: nextId++,
+        date,
+        action,
+        diff: JSON.stringify(diff),
+        prev: JSON.stringify(prev),
+        state: JSON.stringify(state)
+      }
       emit(EVENTS.ON_DISPATCH, event)
     }
 
