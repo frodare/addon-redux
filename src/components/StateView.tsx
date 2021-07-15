@@ -1,4 +1,5 @@
 import React, { FC, useRef, useEffect } from 'react'
+import { stringify } from '../util/jsonHelper'
 import { State, OnDispatchEvent, OnInitEvent } from 'src/typings'
 import ObjectEditor, { ChangeHandler } from './ObjectEditor'
 import { EVENTS, STATE_ID_STORE, PARAM_REDUX_MERGE_STATE } from '../constants'
@@ -12,7 +13,7 @@ const useSetStateFromParameter = (): void => {
   const emit = useChannel({})
   const storyIdRef = useRef<string>('')
   const mergeStateRef = useRef<string>('')
-  const mergeState = useParameter<string>(PARAM_REDUX_MERGE_STATE, '')
+  const mergeState = useParameter<any>(PARAM_REDUX_MERGE_STATE, '')
 
   useEffect(() => {
     const storyChanged = storyId !== '' && storyIdRef.current !== storyId
@@ -22,7 +23,7 @@ const useSetStateFromParameter = (): void => {
     mergeStateRef.current = mergeState
 
     if (mergeState !== '' && (storyChanged || mergeStateChanged)) {
-      emit(EVENTS.MERGE_STATE, mergeState)
+      emit(EVENTS.MERGE_STATE, stringify(mergeState))
     }
   }, [mergeState, storyId, storyIdRef])
 }

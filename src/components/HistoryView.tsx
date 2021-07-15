@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import { OnDispatchEvent } from 'src/typings'
+import { parse } from '../util/jsonHelper'
 import { ACTIONS_TYPES, EVENTS, STATE_ID_HISTORY } from '../constants'
 import { useAddonState, useChannel } from '@storybook/api'
 import { styled } from '@storybook/theming'
@@ -87,23 +88,15 @@ interface RowProps extends OnDispatchEvent {
   emit: (eventName: string, ...args: any[]) => void
 }
 
-const parseJson = (json: string): any => {
-  try {
-    return JSON.parse(json ?? '{}')
-  } catch (err) {
-    return {}
-  }
-}
-
 const Row: FC<RowProps> = ({ date, action, diff, prev, state, emit }) => {
   return (
     <tr>
       <TdStyle>{formatDate(date)}</TdStyle>
       <TdStyle><b>{action.type}</b></TdStyle>
       <TdStyle><Json data={action} /></TdStyle>
-      <TdStyle><Json data={parseJson(diff)} /></TdStyle>
-      <TdStyle><Json data={parseJson(prev)} /></TdStyle>
-      <TdStyle><Json data={parseJson(state)} /></TdStyle>
+      <TdStyle><Json data={parse(diff)} /></TdStyle>
+      <TdStyle><Json data={parse(prev)} /></TdStyle>
+      <TdStyle><Json data={parse(state)} /></TdStyle>
       <TdStyle><button onClick={() => emit(EVENTS.SET_STATE, state)}>Load</button></TdStyle>
     </tr>
   )

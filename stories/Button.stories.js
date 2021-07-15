@@ -6,7 +6,7 @@ export default {
   title: 'Example/Button',
   component: Button,
   parameters: {
-    [PARAM_REDUX_MERGE_STATE]: '{"foo": {"bar": "baz"}}'
+    [PARAM_REDUX_MERGE_STATE]: { fooo: { bar: 'baz' }, tz: '2021-01-04T17:49:03.343Z' }
   }
 }
 
