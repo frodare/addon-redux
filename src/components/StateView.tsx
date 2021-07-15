@@ -3,7 +3,7 @@ import { stringify } from '../util/jsonHelper'
 import { State, OnDispatchEvent, OnInitEvent } from 'src/typings'
 import ObjectEditor, { ChangeHandler } from './ObjectEditor'
 import { EVENTS, STATE_ID_STORE, PARAM_REDUX_MERGE_STATE } from '../constants'
-import { useAddonState, useChannel, useParameter, useStorybookApi } from '@storybook/api'
+import { useAddonState, useChannel, useParameter, useStorybookApi, useArgTypes, useArgs } from '@storybook/api'
 
 const s = (s: string | undefined): string => s === undefined ? '' : s
 
@@ -28,8 +28,18 @@ const useSetStateFromParameter = (): void => {
   }, [mergeState, storyId, storyIdRef])
 }
 
+const useSyncReduxArgs = () => {
+  // const [args, updateArgs, resetArgs] = useArgs()
+
+  const types = useArgTypes()// .filter(t => t.reduxPath)
+
+  console.log({ types })
+}
+
 const StateView: FC<{}> = () => {
   const [state, setState] = useAddonState<State>(STATE_ID_STORE)
+
+  useSyncReduxArgs()
 
   useSetStateFromParameter()
 

@@ -7,6 +7,12 @@ export default {
   component: Button,
   parameters: {
     [PARAM_REDUX_MERGE_STATE]: { fooo: { bar: 'baz' }, tz: '2021-01-04T17:49:03.343Z' }
+  },
+  argTypes: {
+    foo: {
+      control: { type: 'text' },
+      reduxPath: 'counter'
+    }
   }
 }
 
@@ -15,7 +21,8 @@ const Template = (args) => <Button {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
   primary: true,
-  label: 'Button'
+  label: 'Button',
+  foo: 'goodstuff'
 }
 
 export const Secondary = Template.bind({})

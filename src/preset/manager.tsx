@@ -46,6 +46,7 @@ const HistoryPanel: PanelComponent = (props) =>
 
 addons.register(ADDON_ID, () => {
   injectCss()
+
   addons.add(PANEL_ID_STORE, {
     type: types.PANEL,
     title: 'Redux Store',
