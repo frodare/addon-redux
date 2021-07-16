@@ -16,6 +16,14 @@ interface AddonReduxEnabled {
   listenToStateChange: (l: StoreListener) => void
 }
 
+/**
+ * maps an arg name to a part of the redux store
+ */
+interface SyncEntry {
+  name: string
+  path: string
+}
+
 interface AddonReduxStore extends Store {
   __WITH_REDUX_ENABLED__?: AddonReduxEnabled
 }

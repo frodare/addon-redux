@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from './Button'
-import { PARAM_REDUX_MERGE_STATE } from '../src/constants'
+import { PARAM_REDUX_MERGE_STATE, ARG_REDUX_PATH } from '../src/constants'
 
 export default {
   title: 'Example/Button',
@@ -10,8 +10,8 @@ export default {
   },
   argTypes: {
     foo: {
-      control: { type: 'text' },
-      reduxPath: 'counter'
+      control: { type: 'number' },
+      [ARG_REDUX_PATH]: 'counter'
     }
   }
 }
@@ -22,18 +22,20 @@ export const Primary = Template.bind({})
 Primary.args = {
   primary: true,
   label: 'Button',
-  foo: 'goodstuff'
+  foo: 12
 }
 
 export const Secondary = Template.bind({})
 Secondary.args = {
-  label: 'Button'
+  label: 'Button',
+  foo: 125
 }
 
 export const Large = Template.bind({})
 Large.args = {
   size: 'large',
-  label: 'Button'
+  label: 'Button',
+  foo: 0
 }
 
 export const Small = Template.bind({})

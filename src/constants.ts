@@ -7,6 +7,7 @@ export const PANEL_ID_HISTORY = `${ADDON_ID}/panel/history`
 export const PANEL_ID_STORE = `${ADDON_ID}/panel/store`
 
 export const PARAM_REDUX_MERGE_STATE = 'PARAM_REDUX_MERGE_STATE'
+export const ARG_REDUX_PATH = 'ARG_REDUX_PATH'
 
 export const ACTIONS_TYPES = {
   MERGE_STATE_TYPE: '@@WITH_REDUX_MERGE_STATE',

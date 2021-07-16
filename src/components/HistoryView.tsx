@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { OnDispatchEvent } from 'src/typings'
+import { OnDispatchEvent } from '../typings'
 import { parse } from '../util/jsonHelper'
 import { ACTIONS_TYPES, EVENTS, STATE_ID_HISTORY } from '../constants'
 import { useAddonState, useChannel } from '@storybook/api'
