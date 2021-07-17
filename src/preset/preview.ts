@@ -9,6 +9,6 @@
  * https://storybook.js.org/docs/react/writing-stories/decorators#gatsby-focus-wrapper
  */
 
-import withRedux from '../withRedux'
+import withRedux from '../redux/withRedux'
 
 export const decorators = [withRedux()]

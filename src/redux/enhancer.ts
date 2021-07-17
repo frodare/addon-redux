@@ -1,6 +1,8 @@
 import { AnyAction, PreloadedState, Reducer, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux'
-import { ACTIONS_TYPES } from './constants'
-import { Dispatcher, Enhancer, StoreListener } from './typings'
+
+import { ACTIONS_TYPES } from '../constants'
+import { Dispatcher, Enhancer, StoreListener } from '../typings'
+import set from '../util/set'
 
 const mergeReducer: Reducer = (state, action) => {
   const rootState = state
@@ -12,11 +14,20 @@ const mergeReducer: Reducer = (state, action) => {
   }
 }
 
+const setAtPathReducer: Reducer = (state, action) => {
+  return set(state, action.path, action.value)
+}
+
 const enhanceReducer: Enhancer<Reducer> = mainReducer => (state, action) => {
   switch (action.type) {
-    case ACTIONS_TYPES.MERGE_STATE_TYPE: return mergeReducer(state, action)
-    case ACTIONS_TYPES.SET_STATE_TYPE: return action.state
-    default: return mainReducer(state, action)
+    case ACTIONS_TYPES.MERGE_STATE_TYPE:
+      return mergeReducer(state, action)
+    case ACTIONS_TYPES.SET_STATE_AT_PATH_TYPE:
+      return setAtPathReducer(state, action)
+    case ACTIONS_TYPES.SET_STATE_TYPE:
+      return action.state
+    default:
+      return mainReducer(state, action)
   }
 }
 

@@ -4,22 +4,26 @@ import PropTypes from 'prop-types'
 import './button.css'
 // import ObjectEditor from '../dist/esm/components/ObjectEditor'
 
+const ButtonCounter = ({ name, count, id, size, primary }) => {
+  const dispatch = useDispatch()
+  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary'
+  const className = ['storybook-button', `storybook-button--${size}`, mode].join(' ')
+  const mesg = `${name || 'Button'} (${count})`
+  return (
+    <button type='button' className={className} onClick={() => dispatch({ type: 'increment', id })}>
+      {mesg}
+    </button>
+  )
+}
+
 /**
  * Primary UI component for user interaction
  */
 export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-  const dispatch = useDispatch()
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary'
-  const className = ['storybook-button', `storybook-button--${size}`, mode].join(' ')
-  const count = useSelector(state => state.counter)
-  const mesg = `${label} (${count})`
-  const onClick = () => dispatch({ type: 'increment' })
-
+  const counters = useSelector(state => state.counters)
   return (
     <>
-      <button type='button' className={className} onClick={onClick}>
-        {mesg}
-      </button>
+      {counters.map(({ count, name }, i) => <ButtonCounter key={i} name={name} count={count} id={i} size={size} primary={primary} />)}
     </>
   )
 }

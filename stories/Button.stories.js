@@ -6,12 +6,30 @@ export default {
   title: 'Example/Button',
   component: Button,
   parameters: {
-    [PARAM_REDUX_MERGE_STATE]: { fooo: { bar: 'baz' }, tz: '2021-01-04T17:49:03.343Z' }
+    [PARAM_REDUX_MERGE_STATE]: {
+      counters: [
+        { name: 'First Button', count: 0 },
+        { name: 'Second Button', count: 10 },
+        { name: 'Third Button', count: 20 }
+      ]
+    }
   },
   argTypes: {
-    foo: {
+    name1: {
+      control: { type: 'text' },
+      [ARG_REDUX_PATH]: 'counters.0.name'
+    },
+    count1: {
       control: { type: 'number' },
-      [ARG_REDUX_PATH]: 'counter'
+      [ARG_REDUX_PATH]: 'counters.0.count'
+    },
+    name2: {
+      control: { type: 'text' },
+      [ARG_REDUX_PATH]: 'counters.1.name'
+    },
+    count2: {
+      control: { type: 'number' },
+      [ARG_REDUX_PATH]: 'counters.1.count'
     }
   }
 }
@@ -20,9 +38,8 @@ const Template = (args) => <Button {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
-  primary: true,
-  label: 'Button',
-  foo: 12
+  name1: 'Arg 1',
+  count1: 22
 }
 
 export const Secondary = Template.bind({})

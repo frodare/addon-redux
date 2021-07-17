@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 import reducer from './reducer'
-import withReduxEnhancer from '../../dist/esm/enhancer'
+import { enhancer as withReduxEnhancer } from '../../dist/esm'
 
 const createMiddlewareEnhancer = () => {
   const middleware = []

@@ -9,8 +9,8 @@ import useSetStateFromParameter from '../util/useSetStateFromParameter'
 const StateView: FC<{}> = () => {
   const [state, setState] = useAddonState<State>(STATE_ID_STORE)
 
-  useSyncReduxArgs()
   useSetStateFromParameter()
+  useSyncReduxArgs()
 
   const emit = useChannel({
     [EVENTS.ON_DISPATCH]: (ev: OnDispatchEvent) => setState(JSON.parse(ev.state)),
