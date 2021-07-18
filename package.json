@@ -4,9 +4,11 @@
   "description": "Storybook addon for Redux Components",
   "author": "Charles Howard",
   "keywords": [
+    "storybook",
     "storybook-addons",
     "redux",
-    "react"
+    "react",
+    "data-state"
   ],
   "repository": {
     "type": "git",
