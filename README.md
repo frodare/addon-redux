@@ -123,9 +123,38 @@ module.exports = {
 
 ![Redux Addon History Panel](docs/v2/addon-redux-history-panel.png?v=1)
 
+## Args
+
+Further control of the redux state is provided using [storybook args](https://storybook.js.org/docs/react/writing-stories/args). Args can be linked to the redux store using the `ARG_REDUX_PATH` key in the `argTypes` key of the default CSF export. The value of the `ARG_REDUX_PATH` is a dot delimited string representing the path that the arg corresponds to in the store. Integer segments are treated as array indices.
+
+```js
+import React from 'react'
+import App from './App'
+import { ARG_REDUX_PATH } from 'addon-redux'
+
+export default {
+  title: 'App',
+  component: App,
+  argTypes: {
+    name1: {
+      control: { type: 'text' },
+      [ARG_REDUX_PATH]: 'todos.0.text'
+    }
+  }
+};
+
+const Template = (args) => <App />;
+
+export const All = Template.bind({});
+All.args = {
+  name1: 'First Value',
+  completed1: false
+};
+```
+
 ## Parameters
 
-`addon-redux` currently supports one [storybook parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that can be used to change the redux state on story load, `PARAM_REDUX_MERGE_STATE`.  This parameter takes a JSON string that will be parsed and spread on top of the current store's state.
+`addon-redux` currently supports one [storybook parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that can be used to change the redux state on story load, `PARAM_REDUX_MERGE_STATE`.  This parameter takes a JSON string or object that will be parsed and spread on top of the current store's state.
 
 ```js
 // example story using PARAM_REDUX_MERGE_STATE
