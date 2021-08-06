@@ -3,6 +3,10 @@ import { ActionCreator } from 'redux'
 import { ACTIONS_TYPES } from '../constants'
 import { State } from '../typings'
 
+export const resetStateAction: ActionCreator<void> = _ => ({
+  type: ACTIONS_TYPES.RESET_REDUX_TYPE,
+})
+
 export const mergeStateAction: ActionCreator<State> = state => ({
   type: ACTIONS_TYPES.MERGE_STATE_TYPE,
   state

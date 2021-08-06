@@ -27,7 +27,6 @@ const enhanceReducer: Enhancer<Reducer> = mainReducer => (state, action) => {
     case ACTIONS_TYPES.SET_STATE_TYPE:
       return action.state
     case ACTIONS_TYPES.RESET_REDUX_TYPE:
-      // redux will reset stores to their initial state if given undefined as the current state
       return mainReducer(undefined, action);
     default:
       return mainReducer(state, action)
