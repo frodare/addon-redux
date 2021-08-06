@@ -20,6 +20,7 @@ This addon is compatible with Storybook for React
 - Add two panels to Storybook: Redux State and Redux History
 - Wraps stories with a React Redux Provider component
 - View and Edit the current state of the store
+- Resets redux to initial state when switching stories
 - Provides a story parameter to update the store on story load
 - Logs actions and maintains the time, action, previous state, next state and state diff
 - Supports time travel to previous states
