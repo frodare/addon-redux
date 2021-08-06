@@ -26,6 +26,8 @@ const enhanceReducer: Enhancer<Reducer> = mainReducer => (state, action) => {
       return setAtPathReducer(state, action)
     case ACTIONS_TYPES.SET_STATE_TYPE:
       return action.state
+    case ACTIONS_TYPES.RESET_REDUX_TYPE:
+      return mainReducer(undefined, action);
     default:
       return mainReducer(state, action)
   }

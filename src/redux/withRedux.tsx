@@ -1,12 +1,13 @@
 import React from 'react'
 import { StoryFn as StoryFunction, DecoratorFunction, useChannel } from '@storybook/addons'
+import { STORY_CHANGED, } from '@storybook/core-events'
 import { Provider } from 'react-redux'
 import { AnyAction } from 'redux'
 import { diff as differ } from 'jsondiffpatch'
 
 import { EVENTS } from '../constants'
 import { OnDispatchEvent, OnInitEvent, StoreListener } from '../typings'
-import { mergeStateAction, setStateAction, setStateAtPathAction } from './actionCreators'
+import { resetStateAction, mergeStateAction, setStateAction, setStateAtPathAction } from './actionCreators'
 import { getStore } from './enhancer'
 
 let nextId = 0
@@ -19,7 +20,8 @@ export default (): DecoratorFunction => {
       [EVENTS.SET_STATE]: (stateJson: string) => store.dispatch(setStateAction(JSON.parse(stateJson))),
       [EVENTS.SET_STATE_AT_PATH]: (path: string, value: any) => store.dispatch(setStateAtPathAction(path, value)),
       [EVENTS.MERGE_STATE]: (stateJson: string) => store.dispatch(mergeStateAction(JSON.parse(stateJson))),
-      [EVENTS.DISPATCH]: (action: AnyAction) => store.dispatch(action)
+      [EVENTS.DISPATCH]: (action: AnyAction) => store.dispatch(action),
+      [STORY_CHANGED]: (_action: AnyAction) => store.dispatch(resetStateAction()),
     })
 
     const onDispatchListener: StoreListener = (action, prev, state): void => {
