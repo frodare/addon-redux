@@ -107,7 +107,7 @@ const HistoryView: FC<{}> = () => {
 
   const emit = useChannel({
     [EVENTS.ON_DISPATCH]: (ev: OnDispatchEvent) => {
-      if (ev.action.type === ACTIONS_TYPES.MERGE_STATE_TYPE || ev.action.type === ACTIONS_TYPES.SET_STATE_TYPE) {
+      if (Object.values(ACTIONS_TYPES).includes(ev.action.type)) {
         return
       }
       setEvents(events => reducer(events, ev))
