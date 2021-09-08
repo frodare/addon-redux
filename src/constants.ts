@@ -8,6 +8,7 @@ export const PANEL_ID_STORE = `${ADDON_ID}/panel/store`
 
 export const PARAM_REDUX_MERGE_STATE = 'PARAM_REDUX_MERGE_STATE'
 export const ARG_REDUX_PATH = 'ARG_REDUX_PATH'
+export const ARG_REDUX_SET_STATE = 'ARG_REDUX_SET_STATE'
 
 export const ACTIONS_TYPES = {
   RESET_REDUX_TYPE: '@@WITH_RESET_REDUX',

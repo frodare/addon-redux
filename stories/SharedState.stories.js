@@ -1,7 +1,7 @@
 import React from 'react'
-import { PARAM_REDUX_MERGE_STATE, ARG_REDUX_PATH } from '../src/constants'
-import { SharedStateManager } from './SharedState';
-  
+import { PARAM_REDUX_MERGE_STATE } from '../src/constants'
+import { SharedStateManager } from './SharedState'
+
 export default {
   title: 'Example/SharedState',
   component: SharedStateManager,
@@ -18,12 +18,12 @@ const Template = (args) => <SharedStateManager {...args} />
 
 export const Reader = Template.bind({})
 Reader.args = {
-  showButton: false,
+  showButton: false
 }
 
 export const Writer = Template.bind({})
 Writer.args = {
-  showButton: true,
+  showButton: true
 }
 Writer.parameters = {
   [PARAM_REDUX_MERGE_STATE]: {

@@ -1,5 +1,8 @@
 
 export const parse = (json: string): any => {
+  if (json === undefined) {
+    return undefined
+  }
   try {
     return JSON.parse(json ?? '{}')
   } catch (err) {
@@ -7,7 +10,10 @@ export const parse = (json: string): any => {
   }
 }
 
-export const stringify = (obj: any): string => {
+export const stringify = (obj: any): string | undefined => {
+  if (obj === undefined) {
+    return undefined
+  }
   if (typeof obj === 'string') {
     obj = parse(obj)
   }

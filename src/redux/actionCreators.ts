@@ -7,7 +7,7 @@ export const resetStateAction: ActionCreator<void> = () => ({
   type: ACTIONS_TYPES.RESET_REDUX_TYPE
 })
 
-export const mergeStateAction: ActionCreator<State> = state => ({
+export const mergeStateAction: ActionCreator<State> = (state = {}) => ({
   type: ACTIONS_TYPES.MERGE_STATE_TYPE,
   state
 })

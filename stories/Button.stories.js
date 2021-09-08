@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from './Button'
-import { PARAM_REDUX_MERGE_STATE, ARG_REDUX_PATH } from '../src/constants'
+import { PARAM_REDUX_MERGE_STATE, ARG_REDUX_PATH, ARG_REDUX_SET_STATE } from '../dist/esm'
 
 export default {
   title: 'Example/Button',
@@ -15,6 +15,17 @@ export default {
     }
   },
   argTypes: {
+    setAll: {
+      control: { type: 'number' },
+      [ARG_REDUX_SET_STATE]: (value, args, state) => {
+        if (!state) return state
+        const counters = state.counters.map(c => ({ ...c, count: value }))
+        return {
+          ...state,
+          counters
+        }
+      }
+    },
     name1: {
       control: { type: 'text' },
       [ARG_REDUX_PATH]: 'counters.0.name'

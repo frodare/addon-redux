@@ -2,15 +2,15 @@ import { useRef } from 'react'
 import { useArgTypes, ArgTypes, ArgType } from '@storybook/api'
 
 import { ARG_REDUX_PATH } from '../constants'
-import { SyncEntry } from '../typings'
+import { ArgSyncPathEntry } from '../typings'
 
 const syncEnabled = ([name, data]: [string, ArgType]): boolean => data[ARG_REDUX_PATH]
 
 const toString = (o: any): string => o == null ? '' : o.toString()
 
-const useSyncMap = (): SyncEntry[] => {
+const useSyncMap = (): ArgSyncPathEntry[] => {
   const types = useArgTypes()
-  const syncMapRef = useRef<SyncEntry[]>([])
+  const syncMapRef = useRef<ArgSyncPathEntry[]>([])
   const typesRef = useRef<ArgTypes>()
 
   const typesChanged = typesRef.current !== types

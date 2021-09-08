@@ -1,3 +1,4 @@
+import { Args } from '@storybook/api'
 import { AnyAction, Store } from 'redux'
 
 declare module 'global'
@@ -19,9 +20,14 @@ interface AddonReduxEnabled {
 /**
  * maps an arg name to a part of the redux store
  */
-interface SyncEntry {
+interface ArgSyncPathEntry {
   name: string
   path: string
+}
+
+interface ArgSyncSetEntry {
+  name: string
+  setter: (argValue: any, argValues: Args, state: State) => State
 }
 
 interface AddonReduxStore extends Store {

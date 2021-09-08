@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { AnyAction } from 'redux'
 import { diff as differ } from 'jsondiffpatch'
 
+import { parse } from '../util/jsonHelper'
 import { EVENTS } from '../constants'
 import { OnDispatchEvent, OnInitEvent, StoreListener } from '../typings'
 import { resetStateAction, mergeStateAction, setStateAction, setStateAtPathAction } from './actionCreators'
@@ -17,9 +18,9 @@ export default (): DecoratorFunction => {
     const store = getStore()
 
     const emit = useChannel({
-      [EVENTS.SET_STATE]: (stateJson: string) => store.dispatch(setStateAction(JSON.parse(stateJson))),
+      [EVENTS.SET_STATE]: (stateJson: string) => store.dispatch(setStateAction(parse(stateJson))),
       [EVENTS.SET_STATE_AT_PATH]: (path: string, value: any) => store.dispatch(setStateAtPathAction(path, value)),
-      [EVENTS.MERGE_STATE]: (stateJson: string) => store.dispatch(mergeStateAction(JSON.parse(stateJson))),
+      [EVENTS.MERGE_STATE]: (stateJson: string) => store.dispatch(mergeStateAction(parse(stateJson))),
       [EVENTS.DISPATCH]: (action: AnyAction) => store.dispatch(action),
       [STORY_CHANGED]: (_action: AnyAction) => store.dispatch(resetStateAction())
     })

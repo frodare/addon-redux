@@ -5,16 +5,17 @@ import { EVENTS, STATE_ID_STORE } from '../constants'
 import { useAddonState, useChannel } from '@storybook/api'
 import useSyncReduxArgs from '../util/useSyncReduxArgs'
 import useSetStateFromParameter from '../util/useSetStateFromParameter'
+import { parse } from '../util/jsonHelper'
 
 const StateView: FC<{}> = () => {
   const [state, setState] = useAddonState<State>(STATE_ID_STORE)
 
   useSetStateFromParameter()
-  useSyncReduxArgs()
+  useSyncReduxArgs(state)
 
   const emit = useChannel({
-    [EVENTS.ON_DISPATCH]: (ev: OnDispatchEvent) => setState(JSON.parse(ev.state)),
-    [EVENTS.INIT]: (ev: OnInitEvent) => setState(JSON.parse(ev.state))
+    [EVENTS.ON_DISPATCH]: (ev: OnDispatchEvent) => setState(parse(ev.state)),
+    [EVENTS.INIT]: (ev: OnInitEvent) => setState(parse(ev.state))
   })
 
   const onChange: ChangeHandler = value => {
