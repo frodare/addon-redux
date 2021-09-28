@@ -98,6 +98,6 @@
   },
   "dependencies": {
     "jsondiffpatch": "^0.4.1",
-    "jsoneditor": "^9.5.0"
+    "jsoneditor": "^9.5.6"
   }
 }
