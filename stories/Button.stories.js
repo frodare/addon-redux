@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from './Button'
-import { PARAM_REDUX_MERGE_STATE, ARG_REDUX_PATH, ARG_REDUX_SET_STATE } from '../dist/esm'
+import { PARAM_REDUX_MERGE_STATE, ARG_REDUX_PATH, ARG_REDUX_SET_STATE } from '../src/constants'
 
 export default {
   title: 'Example/Button',
