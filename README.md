@@ -113,6 +113,10 @@ export default store
 The store must be imported in `./storybook/preivew.js` so that it will be setup and ready for the stories. 
 This addon will automatically wrap stories with the Redux provider as long as the enhancer has been setup as shown above.
 
+This can be done in two ways:
+
+1. Import the store at the top of your file synchronously
+
 ```js
 // .storybook/preview.js
 const store = require('./your/store')
@@ -120,6 +124,23 @@ const store = require('./your/store')
 module.exports = {
   decorators: []
 }
+```
+
+2. Import the store asynchronously using [Storybook loaders](https://storybook.js.org/docs/react/writing-stories/loaders)
+
+```js
+// .storybook/preview.js
+
+module.exports = {
+  decorators: [],
+  loaders: [
+    async () => ({
+      // need to import store here so that addon-redux can detect it
+      store: await import('../stories/store'),
+    }),
+  ]
+};
+
 ```
 
 ![Redux Addon History Panel](docs/v2/addon-redux-history-panel.png?v=1)
