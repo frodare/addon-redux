@@ -43,9 +43,10 @@ const enhancer: StoreEnhancer<any> = (createStore: StoreEnhancerStoreCreator) =>
 
   const enhanceDispatch: Enhancer<Dispatcher> = dispatch => action => {
     const prev = store.getState()
-    dispatch(action)
+    const result = dispatch(action)
     const next = store.getState()
     if (listener !== null) listener(action, prev, next)
+    return result
   }
 
   let listener: StoreListener = null
