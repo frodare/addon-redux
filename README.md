@@ -119,6 +119,7 @@ This can be done in two ways:
 
 ```js
 // .storybook/preview.js
+
 const store = require('./your/store')
 
 module.exports = {
@@ -135,9 +136,8 @@ module.exports = {
   decorators: [],
   loaders: [
     async () => ({
-      // need to import store here so that addon-redux can detect it
       store: await import('../stories/store'),
-    }),
+    })
   ]
 };
 

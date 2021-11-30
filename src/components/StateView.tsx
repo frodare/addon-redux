@@ -9,7 +9,13 @@ import { parse } from '../util/jsonHelper'
 import { STORY_CHANGED } from '@storybook/core-events'
 import { AnyAction } from 'redux'
 
-const StateViewContainer: FC<{}> = () => {
+const ObjectEditorWrapper: FC<{ state: any, onChange: (value: any) => void }> = ({ state, onChange }) => {
+  useSetStateFromParameter()
+  useSyncReduxArgs(state)
+  return <ObjectEditor value={state} onChange={onChange} />
+}
+
+const StateView: FC<{}> = () => {
   const [state, setState] = useAddonState<State>(STATE_ID_STORE)
 
   /*
@@ -30,25 +36,15 @@ const StateViewContainer: FC<{}> = () => {
     }
   })
 
-  const onChange: ChangeHandler = React.useCallback(
-    value => {
-      emit(EVENTS.SET_STATE, JSON.stringify(value))
-    },
-    []
-  )
+  const onChange: ChangeHandler = React.useCallback(value => {
+    emit(EVENTS.SET_STATE, JSON.stringify(value))
+  }, [])
 
   if (!initialized) {
     return <>Loading...</>
   } else {
-    return <StateView state={state} onChange={onChange} />
+    return <ObjectEditorWrapper state={state} onChange={onChange} />
   }
 }
 
-const StateView: FC<{ state: any, onChange: (value: any) => void }> = (args) => {
-  useSetStateFromParameter()
-  useSyncReduxArgs(args.state)
-
-  return <ObjectEditor value={args.state} onChange={args.onChange} />
-}
-
-export default StateViewContainer
+export default StateView
