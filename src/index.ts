@@ -1,4 +1,4 @@
-if ((module?.hot?.decline) != null) {
+if (typeof module !== 'undefined' && (module?.hot?.decline) != null) {
   module.hot.decline()
 }
 
