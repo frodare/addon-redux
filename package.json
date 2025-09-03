@@ -97,7 +97,7 @@
     "icon": "https://raw.githubusercontent.com/frodare/addon-redux/master/docs/addon-redux.png"
   },
   "dependencies": {
-    "jsondiffpatch": "^0.4.1",
+    "jsondiffpatch": "^0.7.2",
     "jsoneditor": "^9.5.0"
   }
 }
