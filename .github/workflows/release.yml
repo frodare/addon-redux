@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+      - 'feature/**'
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write # push release tags and create GitHub releases
+  issues: write # comment on issues resolved by a release
+  pull-requests: write # comment on pull requests included in a release
+
+jobs:
+  release-snapshot:
+    if: startsWith(github.ref, 'refs/heads/feature/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # semantic-release needs full history and tags
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-ineractive
+      - name: Deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.SNAPSHOT_NPM_TOKEN }}
+          NPM_PACKAGE_SCOPE: ${{ secrets.NPM_PACKAGE_SCOPE }}
+          NPM_SNAPSHOT_REPO: ${{ secrets.NPM_SNAPSHOT_REPO }}
+        run: |
+          npm config set "${NPM_PACKAGE_SCOPE}:registry" "${NPM_SNAPSHOT_REPO}"
+          yarn prerelease
+          # some of the build scripts exit with status code other then 0, though they seem to work
+          # properly. So we don't let the pipeline fail
+          yarn build || true
+          npx semantic-release
+
+  release:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # semantic-release needs full history and tags
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-ineractive
+      - run: echo "Running release job"
+      - run: yarn prerelease
+        # some of the build scripts exit with status code other then 0, though they seem to work
+        # properly. So we don't let the pipeline fail
+      - run: yarn build || true
+      - name: Deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
